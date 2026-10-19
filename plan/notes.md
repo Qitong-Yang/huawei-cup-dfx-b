@@ -90,3 +90,11 @@
   | HomeStay1 | Index.ets:65 | MockData.ets:11 | JSON.parse 失败 → 追参数来源到 Mock 数据 |
   | ComprehensiveNews1 003 | 111 | MockArticle.ets:50 | 读 undefined 属性 → 追查找函数的键，核对数据 |
   | Exam1 | MainPage:65 | TopicModel:40 | 栈溢出 → 递归无访问集合 + 数据成环 |
+
+## 11. Phase 4 第一批规则（`src/dfx_repair/locate/rules/`）
+- `align`：日志行与源码不符（空行/注释/不含错误消息对应的语法结构）时，在 ±8 行内找最近的匹配行。修复 MoneyTrack1_2（110→114）。
+- `R-BOUNDS-PARTIAL`：`arr[i].p` 读到 undefined，且同函数内更早的 `if` 检查了 `arr.length` 但没检查 `i` → 报该 `if` 行。修复 ComprehensiveTool1（83→78）。
+- `R-BOUNDS-LOOP`：缓冲区/视图越界错误，所在函数里有 `for (...; v <= total; ...)` → 报循环行。修复 AudioEditing1（58→52）。
+- 结果：exact 18→21/25；只有这 3 个案例结果变化，其余 22 个规则均未触发。单元测试含反例（两个下标都检查、循环用 `<`）。
+- 泛化说明：规则按错误语义和代码结构匹配，不含任何案例特有的变量名或文件名；但每条规则目前只有 1 个真实案例支撑，后续用故障变异（Phase 9）补充验证。
+- 运行耗时：规则版全量 2 分 27 秒，主要花在 `/mnt/f` 上为每个案例建 SourceIndex；单案例定位逻辑本身 < 0.1 秒。

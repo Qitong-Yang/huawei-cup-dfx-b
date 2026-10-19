@@ -34,7 +34,7 @@
 - 验收：得到基线指标；ComprehensiveTool1 精确位置应未命中（83≠78）
 
 ### Phase 4: 证据驱动定位（P0）
-- [ ] 4.1 `locate/rules/`：每条规则输出候选位置、证据、需排除的假设、待读代码
+- [~] 4.1 `locate/rules/`：每条规则输出候选位置、证据、需排除的假设、待读代码
 - [ ] 4.2 退出条件：映射 `UNIQUE` + 证据链闭合 + 假设已排除 → 直接输出；否则扩大检索或交给 LLM
 - [ ] 4.3 留一法评测
 - 验收：精确位置命中率高于基线；每条规则有案例和单元测试
@@ -93,5 +93,6 @@
 - 测试期望写错（后缀匹配段数 2→3）→ 已改正测试。
 
 ## Status
-**Phase 3 完成**（2026-10-19）。栈顶基线 `eval/runs/stack_top_20261019_043501/`：exact 18/25、range 21/25、function 23/25、file 24/25；25 个沙箱泄题扫描均为 0。
-下一步：Phase 4 证据驱动定位，目标是 7 个未精确命中的案例（见 notes 第 10 节）。
+**Phase 4 进行中**（2026-10-19）。规则定位 `eval/runs/rules_20261019_062946/`：exact 21/25（基线 18）、range 23/25、function 23/25、file 24/25；0 次 LLM 调用。
+已实现：行号对齐（align）、R-BOUNDS-PARTIAL、R-BOUNDS-LOOP；其余 22 个案例规则均未触发（无误报）。
+剩余 4 个精确未命中都需要跨文件追数据（HomeStay1、ComprehensiveNews1 003、Exam1、Notes1）→ 计划用"规则缩小范围 + LLM 判定"（Phase 5，需要 Kimi API key）。
