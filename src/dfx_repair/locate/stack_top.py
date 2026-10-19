@@ -33,7 +33,7 @@ def locate_stack_top(case_id: str, ctx: CrashContext, index: SourceIndex, source
 
     crash = Location.at(mapping.candidates[0], top.line, role="crash_site")
     evidence = (f"{ctx.error_name}: {ctx.error_message}", f"top frame {top.raw}")
-    assumptions = ("root cause is at the crash site",)
+    assumptions: tuple[str, ...] = ("root cause is at the crash site",)
     if mapping.status is MapStatus.MULTIPLE:
         assumptions += (f"{len(mapping.candidates)} files match {top.path}; picked the first",)
     score = 1.0 if mapping.status is MapStatus.UNIQUE else 0.5
