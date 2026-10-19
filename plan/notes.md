@@ -75,3 +75,18 @@
 - 精确命中判定规则：属于注入改动 + 单改该行即可消除崩溃且不破坏功能。按此规则补充了 Express1:346、EnterpriseRecruitment2 PropUtil.js:3、AccountingApp1:48。
 - 教训：整理答案时只按关键词搜索，漏读了测试脚本文件头的"故障链"说明（Express1、Notes1 都有）；以后先通读文件头。
 - 崩溃行不在可接受行内的案例共 6 个（25 个中）：ComprehensiveTool1、Notes1、ComprehensiveNews1、HomeStay1.0.6、Exam1、AudioEditing1 —— 只报栈顶的基线在这些案例上必然失分，精确命中率上限 19/25。
+
+## 10. Phase 3 基线结果（`eval/runs/stack_top_20261019_043501/report.md`）
+- 栈顶基线：exact 18/25（72%）、range 21/25、function 23/25、file 24/25；0 次 LLM 调用。
+- 沙箱：25 个，按允许清单复制源码 + 清洗后的日志；泄题扫描（fault_file/故障位置/TC 编号等）全部为 0。
+- **性能问题**：首次建沙箱在 `/mnt/f` 上耗时约 23 分钟（WSL 访问 Windows 盘很慢）；之后复用缓存。若需频繁重建，改用 Linux 文件系统路径（`--sandbox-root ~/dfx_sandbox`）。
+- 7 个精确未命中，按 Phase 4 需要的能力分类：
+  | 案例 | 栈顶 | 答案 | 需要的规则 |
+  |---|---|---|---|
+  | ComprehensiveTool1 | 83 | 78 | 数组下标越界 → 同函数内找不完整的边界检查 |
+  | AudioEditing1 | 58 | 52 | 越界读取 → 找循环条件 `<=` off-by-one |
+  | MoneyTrack1_2 | 110 | 114 | **日志行号与源码偏移** → 按错误内容在附近对齐（如 `Object.keys`） |
+  | Notes1 | 287 | 197/237 | 循环结构 JSON.stringify → 找给对象挂反向引用的赋值 |
+  | HomeStay1 | Index.ets:65 | MockData.ets:11 | JSON.parse 失败 → 追参数来源到 Mock 数据 |
+  | ComprehensiveNews1 003 | 111 | MockArticle.ets:50 | 读 undefined 属性 → 追查找函数的键，核对数据 |
+  | Exam1 | MainPage:65 | TopicModel:40 | 栈溢出 → 递归无访问集合 + 数据成环 |
