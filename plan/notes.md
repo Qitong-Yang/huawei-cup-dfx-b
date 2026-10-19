@@ -52,3 +52,26 @@
   - https://www.datacamp.com/tutorial/kimi-k3-tutorial
   - https://enter.converge.ai/page/en-US/blog/kimi-k3-api-guide
   - https://dev.to/bri_whitmore_88/moonshot-api-complete-guide-from-kimi-k2-to-k3-and-beyond-57bm
+
+## 8. Phase 1 盘点结论（2026-10-19，`eval/inventory.py` → `resources/cases.json`）
+- 共 27 个案例，键为 `TC编号@应用@数据集`（TC 编号在不同应用间重复，不能单独作键）。
+- 26 个有日志；主日志按"栈顶映射唯一 > 标准 HiviewDFX 格式 > bundle 匹配 > 最新"选择，全部 `UNIQUE` 映射到源码。
+- 日志格式问题（已在 `ingest/crash_log.py` 处理）：
+  - `TC_JSError_017` 的日志为 UTF-16（带 BOM）；
+  - AccountingApp1 用 `Process name` 代替 `Module name`；
+  - Express1/MoneyTrack1_2 的合成日志使用设备路径 `file:///data/storage/el1/bundle/...`；
+  - 文件名 `jscrash-com.kuaishou.hmapp-...log` 被复用在 7 个应用里，内容各不相同，**不能按文件名识别日志**；
+  - 部分合成日志行号与源码不一致（Express1 合成日志 352 vs 真实 354；MoneyTrack1_2 日志 110 vs 源码 114）。
+- **第 4 个泄题源**：ChildrenEducation1 的日志自带 `Root cause:` / `Fix:` 段 → 沙箱必须用 `strip_leaky_sections` 清洗。
+- `DFXBenchMark_TC` 的同编号脚本可能属于其他应用（`TC_JSError_003.py` 描述的是 income_calculator）；ComprehensiveNews1 自己的 `TC_JSError_003.py` 也描述了别的应用。备用脚本改为按 bundle 名过滤。
+
+## 9. 标准答案（`eval/build_ground_truth.py` → `resources/ground_truth.json`）
+- 27 条，25 条可评分，2 条排除：
+  - `TC_JSError_002@ComprehensiveNews1`：故障不在提供的源码中（`toDeleteList` 从未为 null，日志行 48 是 `} else {`）；
+  - `TC_JSError_018@ImageProcessing1`：ZIP 内没有日志。
+- 每条含 `crash`、`accepted_lines`（算精确命中的行，可多个）、`root_cause_locations`（范围，算"范围命中"）、`basis`、`certainty`。
+- 依据分布：测试脚本标注、脚本描述、B3 注入报告/设计文档（已对照当前源码复核，报告中 016/018 编号对调）、兄弟版本 diff（MoneyTrack1 vs MoneyTrack1_2、WebShortDrama1 B2 vs B3）、日志 Root cause 段、人工分析。
+- `certainty`：复核后 25 条全部为 high（复核过程见 `plan/gt_review.md`）。ComprehensiveNews1 003 的根因找到：`MockArticle.ets:50` 的 `authorId` 大小写错误。
+- 精确命中判定规则：属于注入改动 + 单改该行即可消除崩溃且不破坏功能。按此规则补充了 Express1:346、EnterpriseRecruitment2 PropUtil.js:3、AccountingApp1:48。
+- 教训：整理答案时只按关键词搜索，漏读了测试脚本文件头的"故障链"说明（Express1、Notes1 都有）；以后先通读文件头。
+- 崩溃行不在可接受行内的案例共 6 个（25 个中）：ComprehensiveTool1、Notes1、ComprehensiveNews1、HomeStay1.0.6、Exam1、AudioEditing1 —— 只报栈顶的基线在这些案例上必然失分，精确命中率上限 19/25。

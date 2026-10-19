@@ -1,0 +1,1259 @@
+{
+  "data_root": "data-master/data_B",
+  "case_count": 27,
+  "cases": [
+    {
+      "case_id": "TC_JSError_002@AccountingApp1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_002",
+      "app": "AccountingApp1",
+      "app_dir": "data_B1/AccountingApp1",
+      "bundle": "jzyy.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B1/AccountingApp1/TC_JSError_002-AccountingApp1/faultlogger/jscrash-jzyy.1.xxxxxx-20020187-20260731110000000.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: class constructor MyAxisValueFormatter cannot be invoked without 'new'",
+          "top_frame": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228:31",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/bill_chart/src/main/ets/components/BillBarChart.ets"
+          ],
+          "timestamp": "2026-07-31 11:00:00.000",
+          "standard_format": false,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/AccountingApp1/testcases/TC_JSError_002.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_004@BookRead2@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_004",
+      "app": "BookRead2",
+      "app_dir": "data_B1/BookRead2",
+      "bundle": "ydts.1.xxxxxx",
+      "primary_log": 3,
+      "logs": [
+        {
+          "path": "data_B1/BookRead2/TC_JSError_004-BookRead2/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "ydts.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property load of undefined",
+          "top_frame": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "feature/book_home/src/main/ets/views/BookViewListPage.ets"
+          ],
+          "timestamp": "2026-08-04 15:58:26.950",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/BookRead2/testcases/TC_JSError_004-BookRead2/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "ydts.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property load of undefined",
+          "top_frame": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "feature/book_home/src/main/ets/views/BookViewListPage.ets"
+          ],
+          "timestamp": "2026-08-05 11:03:36.194",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_004-BookRead2/faultlogger/jscrash-ydts.1.xxxxxx-20020076-20260805111527753.log",
+          "module_name": "ydts.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property load of undefined",
+          "top_frame": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "feature/book_home/src/main/ets/views/BookViewListPage.ets"
+          ],
+          "timestamp": "2026-08-05 11:15:27.753",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_004-BookRead2/faultlogger/jscrash-ydts.1.xxxxxx-20020076-20260805112006499.log",
+          "module_name": "ydts.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property load of undefined",
+          "top_frame": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "feature/book_home/src/main/ets/views/BookViewListPage.ets"
+          ],
+          "timestamp": "2026-08-05 11:20:06.499",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/BookRead2/testcases/TC_JSError_004.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_004.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_007@Calendar1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_007",
+      "app": "Calendar1",
+      "app_dir": "data_B1/Calendar1",
+      "bundle": "rlyy.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B1/Calendar1/TC_JSError_007-Calendar1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "rlyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a BigInt value to a number",
+          "top_frame": "components/date_calculation/src/main/ets/utils/Utils.ets:55:15",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/date_calculation/src/main/ets/utils/Utils.ets"
+          ],
+          "timestamp": "2026-07-17 16:58:52.407",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Calendar1/TC_JSError_007-Calendar1/faultlogger/jscrash-rlyy.1.xxxxxx-20020215-20260717165852407.log",
+          "module_name": "rlyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a BigInt value to a number",
+          "top_frame": "components/date_calculation/src/main/ets/utils/Utils.ets:55:15",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/date_calculation/src/main/ets/utils/Utils.ets"
+          ],
+          "timestamp": "2026-07-17 16:58:52.407",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/Calendar1/testcases/TC_JSError_007.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_007.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_001",
+      "app": "ComprehensiveTool1",
+      "app_dir": "data_B1/ComprehensiveTool1",
+      "bundle": "zhyy.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B1/ComprehensiveTool1/TC_JSError_001-ComprehensiveTool1/faultlogger/jscrash-zhyy.1.xxxxxx-20020064-20260804142324540.log",
+          "module_name": "zhyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property sortNum of undefined",
+          "top_frame": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:83:33",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets"
+          ],
+          "timestamp": "2026-08-04 14:23:24.540",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/ComprehensiveTool1/testcases/TC_JSError_001.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_009",
+      "app": "EnterpriseRecruitment2",
+      "app_dir": "data_B1/EnterpriseRecruitment2",
+      "bundle": "qzzp.1.xxxxxx",
+      "primary_log": 3,
+      "logs": [
+        {
+          "path": "data_B1/EnterpriseRecruitment2/TC_JSError_009-EnterpriseRecruitment2/faultlogger/jscrash-qzzp.1.xxxxxx-20020218-20260721101921932.log",
+          "module_name": "qzzp.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot use 'in' operator in Non-Object",
+          "top_frame": "commons/component/src/main/ets/utils/PropUtil.js:3:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/component/src/main/ets/utils/PropUtil.js"
+          ],
+          "timestamp": "2026-07-21 10:19:21.932",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/EnterpriseRecruitment2/TC_JSError_009-EnterpriseRecruitment2/faultlogger/jscrash-qzzp.1.xxxxxx-20020218-20260721102013277.log",
+          "module_name": "qzzp.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot use 'in' operator in Non-Object",
+          "top_frame": "commons/component/src/main/ets/utils/PropUtil.js:3:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/component/src/main/ets/utils/PropUtil.js"
+          ],
+          "timestamp": "2026-07-21 10:20:13.277",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/EnterpriseRecruitment2/TC_JSError_009-EnterpriseRecruitment2/faultlogger/jscrash-qzzp.1.xxxxxx-20020218-20260721112731902.log",
+          "module_name": "qzzp.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot use 'in' operator in Non-Object",
+          "top_frame": "commons/component/src/main/ets/utils/PropUtil.js:3:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/component/src/main/ets/utils/PropUtil.js"
+          ],
+          "timestamp": "2026-07-21 11:27:31.902",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/EnterpriseRecruitment2/TC_JSError_009-EnterpriseRecruitment2/faultlogger/jscrash-qzzp.1.xxxxxx-20020218-20260721112823802.log",
+          "module_name": "qzzp.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot use 'in' operator in Non-Object",
+          "top_frame": "commons/component/src/main/ets/utils/PropUtil.js:3:17",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/component/src/main/ets/utils/PropUtil.js"
+          ],
+          "timestamp": "2026-07-21 11:28:23.802",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/EnterpriseRecruitment2/testcases/TC_JSError_009.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_009.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_010@Express1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_010",
+      "app": "Express1",
+      "app_dir": "data_B1/Express1",
+      "bundle": "kdwl.1.xxxxxx",
+      "primary_log": 3,
+      "logs": [
+        {
+          "path": "data_B1/Express1/TC_JSError_010-Express1/faultlogger/jscrash-kdwl.1.xxxxxx-20020187-20260326174531461.log",
+          "module_name": "entry",
+          "bundle_match": false,
+          "error": "TypeError: Get property index out-of-bounds",
+          "top_frame": "/data/storage/el1/bundle/entry/ets/viewModels/ExpressPageVM.ets:352:38",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets"
+          ],
+          "timestamp": "2026-03-26 17:45:31.461",
+          "standard_format": false,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Express1/TC_JSError_010-Express1/faultlogger/jscrash-kdwl.1.xxxxxx-20020219-20260721160905745.log",
+          "module_name": "kdwl.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Get Property index out-of-bounds",
+          "top_frame": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354:40",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets"
+          ],
+          "timestamp": "2026-07-21 16:09:05.745",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_010-Express1/faultlogger/jscrash-kdwl.1.xxxxxx-20020085-20260804191148622.log",
+          "module_name": "kdwl.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Get Property index out-of-bounds",
+          "top_frame": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354:40",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets"
+          ],
+          "timestamp": "2026-08-04 19:11:48.622",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_010-Express1/faultlogger/jscrash-kdwl.1.xxxxxx-20020085-20260805111822228.log",
+          "module_name": "kdwl.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Get Property index out-of-bounds",
+          "top_frame": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354:40",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets"
+          ],
+          "timestamp": "2026-08-05 11:18:22.228",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/Express1/testcases/TC_JSError_010.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_010.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_005",
+      "app": "MoneyTrack1_2",
+      "app_dir": "data_B1/MoneyTrack1_2",
+      "bundle": "jzyy.1.xxxxxx",
+      "primary_log": 3,
+      "logs": [
+        {
+          "path": "data_B1/MoneyTrack1_2/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020062-20260803153814295.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a UNDEFINED value to a JSObject",
+          "top_frame": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110:16",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets"
+          ],
+          "timestamp": "2026-08-03 15:38:14.295",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/MoneyTrack1_2/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020062-20260803154748962.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a UNDEFINED value to a JSObject",
+          "top_frame": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110:16",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets"
+          ],
+          "timestamp": "2026-08-03 15:47:48.962",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/MoneyTrack1_2/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020062-20260803175739799.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a UNDEFINED value to a JSObject",
+          "top_frame": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110:16",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets"
+          ],
+          "timestamp": "2026-08-03 17:57:39.799",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/MoneyTrack1_2/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020062-20260803180426915.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a UNDEFINED value to a JSObject",
+          "top_frame": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110:16",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets"
+          ],
+          "timestamp": "2026-08-03 18:04:26.915",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/MoneyTrack1_2/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020187-20260326174531461.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot convert a UNDEFINED value to a JSObject",
+          "top_frame": "/data/storage/el2/blend/assets/assets/AssetAnalysisVM.ets:110:24",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets"
+          ],
+          "timestamp": "2026-03-26 17:45:31.461",
+          "standard_format": false,
+          "warnings": [
+            "missing 'Error name' field; fell back to Error type/Reason"
+          ]
+        }
+      ],
+      "scripts": [
+        "data_B1/MoneyTrack1_2/testcases/TC_JSError_005.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_005.py"
+      ],
+      "anomalies": [
+        "log dir name 'TC_JSError_005-MoneyTrack1' does not match app 'MoneyTrack1_2'"
+      ]
+    },
+    {
+      "case_id": "TC_JSError_025@Music1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_025",
+      "app": "Music1",
+      "app_dir": "data_B1/Music1",
+      "bundle": "music.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:37:05.686",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723094108110.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 09:41:08.110",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723101215785.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:12:15.785",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723101548607.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:15:48.607",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723101627208.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:16:27.208",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723102051189.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:20:51.189",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723103420849.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:34:20.849",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/Music1/TC_JSError_025-Music1/faultlogger/jscrash-music.1.xxxxxx-20020223-20260723103705686.log",
+          "module_name": "music.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: is infinity",
+          "top_frame": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190:36",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets"
+          ],
+          "timestamp": "2026-07-23 10:37:05.686",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/Music1/testcases/TC_JSError_025.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_025.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_006@Notes1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_006",
+      "app": "Notes1",
+      "app_dir": "data_B1/Notes1",
+      "bundle": "bjyy.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B1/Notes1/TC_JSError_006-ComprehensiveNews1/faultlogger/jscrash-bjyy.1.xxxxxx-20020214-20260717141619011.log",
+          "module_name": "bjyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: stack contains value, usually caused by circular structure",
+          "top_frame": "common/datasource/src/main/ets/NoteService.ets:287:72",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "common/datasource/src/main/ets/NoteService.ets"
+          ],
+          "timestamp": "2026-07-17 14:16:19.011",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/Notes1/testcases/TC_JSError_006.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_006.py"
+      ],
+      "anomalies": [
+        "log dir name 'TC_JSError_006-ComprehensiveNews1' does not match app 'Notes1'"
+      ]
+    },
+    {
+      "case_id": "TC_JSError_026@Teleprompter1@B1",
+      "dataset": "B1",
+      "tc": "TC_JSError_026",
+      "app": "Teleprompter1",
+      "app_dir": "data_B1/Teleprompter1",
+      "bundle": "teleprompter.1.xxxxxx",
+      "primary_log": 2,
+      "logs": [
+        {
+          "path": "data_B1/Teleprompter1/TC_JSError_026-Teleprompter1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "com.kuaishou.hmapp",
+          "bundle_match": false,
+          "error": "RangeError: fraction must be 0 to 100",
+          "top_frame": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232:81",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/teleprompter/src/main/ets/components/ConfigSheet.ets"
+          ],
+          "timestamp": "2026-03-26 17:45:31.461",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_026-Teleprompter1/faultlogger/jscrash-teleprompter.1.xxxxxx-20020083-20260804191806266.log",
+          "module_name": "teleprompter.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: fraction must be 0 to 100",
+          "top_frame": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232:81",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/teleprompter/src/main/ets/components/ConfigSheet.ets"
+          ],
+          "timestamp": "2026-08-04 19:18:06.266",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_026-Teleprompter1/faultlogger/jscrash-teleprompter.1.xxxxxx-20020083-20260805111935273.log",
+          "module_name": "teleprompter.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: fraction must be 0 to 100",
+          "top_frame": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232:81",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/teleprompter/src/main/ets/components/ConfigSheet.ets"
+          ],
+          "timestamp": "2026-08-05 11:19:35.273",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B1/Teleprompter1/testcases/TC_JSError_026.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_026.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSError_011",
+      "app": "ChildrenEducation1",
+      "app_dir": "data_B2/ChildrenEducation1",
+      "bundle": "etjy.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B2/ChildrenEducation1/TC_JSError_011-ChildrenEducation1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "etjy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: class constructor SharePicker cannot be called without 'new'",
+          "top_frame": "VideoPlayPage.ets:72:24",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/utils/src/main/ets/player/VideoPlayPage.ets"
+          ],
+          "timestamp": "20260326174531461",
+          "standard_format": false,
+          "warnings": [
+            "missing 'Error name' field; fell back to Error type/Reason",
+            "log contains non-standard answer sections (Root cause / Fix)"
+          ]
+        }
+      ],
+      "scripts": [
+        "data_B2/ChildrenEducation1/testcases/TC_JSError_011.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_011.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSError_001",
+      "app": "ComprehensiveMall1",
+      "app_dir": "data_B2/ComprehensiveMall1",
+      "bundle": "zhsc.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B2/ComprehensiveMall1/TC_JSError_001-ComprehensiveMall1/faultlogger/jscrash-zhsc.1.xxxxxx-20020187-20260731103000000.log",
+          "module_name": "zhsc.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property 'icon' of undefined",
+          "top_frame": "features/order/src/main/ets/views/OrderInfoPage.ets:119:23",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/order/src/main/ets/views/OrderInfoPage.ets"
+          ],
+          "timestamp": "2026-07-31 10:30:00.000",
+          "standard_format": false,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B2/ComprehensiveMall1/testcases/TC_JSError_001.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_002@ComprehensiveNews1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSError_002",
+      "app": "ComprehensiveNews1",
+      "app_dir": "data_B2/ComprehensiveNews1",
+      "bundle": "zhxw.1.xxxxxx",
+      "primary_log": 2,
+      "logs": [
+        {
+          "path": "data_B2/ComprehensiveNews1/TC_JSError_002-ComprehensiveNews1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "zhxw.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property authorNickName of undefined",
+          "top_frame": "ArticleFeedDetails.ets:111:23",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets"
+          ],
+          "timestamp": "2026-03-26 17:45:31.461",
+          "standard_format": false,
+          "warnings": [
+            "missing 'Error name' field; fell back to Error type/Reason"
+          ]
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_002-ComprehensiveNews1/faultlogger/jscrash-zhxw.1.xxxxxx-20020075-20260804191711100.log",
+          "module_name": "zhxw.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property push of null",
+          "top_frame": "features/business_mine/src/main/ets/viewmodels/HistoryVM.ets:48:12",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_mine/src/main/ets/viewmodels/HistoryVM.ets"
+          ],
+          "timestamp": "2026-08-04 19:17:11.100",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_002-ComprehensiveNews1/faultlogger/jscrash-zhxw.1.xxxxxx-20020075-20260805111348110.log",
+          "module_name": "zhxw.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property push of null",
+          "top_frame": "features/business_mine/src/main/ets/viewmodels/HistoryVM.ets:48:12",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/business_mine/src/main/ets/viewmodels/HistoryVM.ets"
+          ],
+          "timestamp": "2026-08-05 11:13:48.110",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B2/ComprehensiveNews1/testcases/TC_JSError_002.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_002.py"
+      ],
+      "anomalies": [
+        "log disagrees with primary (error/top file): data_B2/ComprehensiveNews1/TC_JSError_002-ComprehensiveNews1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log"
+      ]
+    },
+    {
+      "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSError_003",
+      "app": "ComprehensiveNews1",
+      "app_dir": "data_B2/ComprehensiveNews1",
+      "bundle": "zhxw.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B2/ComprehensiveNews1/TC_JSError_003-ComprehensiveNews1/faultlogger/jscrash-zhxw.1.xxxxxx-20020063-20260804153007761.log",
+          "module_name": "zhxw.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Cannot read property authorNickName of undefined",
+          "top_frame": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111:69",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets"
+          ],
+          "timestamp": "2026-08-04 15:30:07.761",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B2/ComprehensiveNews1/testcases/TC_JSError_003.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_005@MoneyTrack1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSError_005",
+      "app": "MoneyTrack1",
+      "app_dir": "data_B2/MoneyTrack1",
+      "bundle": "jzyy.1.xxxxxx",
+      "primary_log": 3,
+      "logs": [
+        {
+          "path": "data_B2/MoneyTrack1/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-com.kuaishou.hmapp-20020187-20260326174531461.log",
+          "module_name": "com.kuaishou.hmapp",
+          "bundle_match": false,
+          "error": "TypeError: Obj is not a Valid object",
+          "top_frame": "features/statistics/src/main/ets/components/CalendarSummary.ets:55:11",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/statistics/src/main/ets/components/CalendarSummary.ets"
+          ],
+          "timestamp": "2026-03-26 17:45:31.461",
+          "standard_format": false,
+          "warnings": []
+        },
+        {
+          "path": "data_B2/MoneyTrack1/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020213-20260717094333254.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Obj is not a Valid object",
+          "top_frame": "features/statistics/src/main/ets/components/CalendarSummary.ets:55:11",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/statistics/src/main/ets/components/CalendarSummary.ets"
+          ],
+          "timestamp": "2026-07-17 09:43:33.254",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020077-20260804191733298.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Obj is not a Valid object",
+          "top_frame": "features/statistics/src/main/ets/components/CalendarSummary.ets:55:11",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/statistics/src/main/ets/components/CalendarSummary.ets"
+          ],
+          "timestamp": "2026-08-04 19:17:33.298",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B1/DFXBenchMark_TC/TC_JSError_005-MoneyTrack1/faultlogger/jscrash-jzyy.1.xxxxxx-20020087-20260805113848057.log",
+          "module_name": "jzyy.1.xxxxxx",
+          "bundle_match": true,
+          "error": "TypeError: Obj is not a Valid object",
+          "top_frame": "features/statistics/src/main/ets/components/CalendarSummary.ets:55:11",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/statistics/src/main/ets/components/CalendarSummary.ets"
+          ],
+          "timestamp": "2026-08-05 11:38:48.057",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B2/MoneyTrack1/testcases/TC_JSError_005.py"
+      ],
+      "alt_scripts": [
+        "data_B1/DFXBenchMark_TC/TC_JSError_005.py"
+      ],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+      "dataset": "B2",
+      "tc": "TC_JSRangeError_024",
+      "app": "WebShortDrama1",
+      "app_dir": "data_B2/WebShortDrama1",
+      "bundle": "wldj.1.xxxxxx",
+      "primary_log": 2,
+      "logs": [
+        {
+          "path": "data_B2/WebShortDrama1/TC_JSRangeError_024-WebShortDrama1/faultlogger/jscrash-wldj.1.xxxxxx-20020065-20260807100358185.log",
+          "module_name": "wldj.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: The byte length of Uint32Array should be a multiple of 4",
+          "top_frame": "components/aggregated_share/src/main/ets/views/ShareView.ets:40:27",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/aggregated_share/src/main/ets/views/ShareView.ets"
+          ],
+          "timestamp": "2026-08-07 10:03:58.185",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B2/WebShortDrama1/TC_JSRangeError_024-WebShortDrama1/faultlogger/jscrash-wldj.1.xxxxxx-20020065-20260807102556810.log",
+          "module_name": "wldj.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: The byte length of Uint32Array should be a multiple of 4",
+          "top_frame": "components/aggregated_share/src/main/ets/views/ShareView.ets:40:22",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/aggregated_share/src/main/ets/views/ShareView.ets"
+          ],
+          "timestamp": "2026-08-07 10:25:56.810",
+          "standard_format": true,
+          "warnings": []
+        },
+        {
+          "path": "data_B2/WebShortDrama1/TC_JSRangeError_024-WebShortDrama1/faultlogger/jscrash-wldj.1.xxxxxx-20020065-20260807104029627.log",
+          "module_name": "wldj.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: The byte length of Uint32Array should be a multiple of 4",
+          "top_frame": "components/aggregated_share/src/main/ets/views/ShareView.ets:40:22",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/aggregated_share/src/main/ets/views/ShareView.ets"
+          ],
+          "timestamp": "2026-08-07 10:40:29.627",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B2/WebShortDrama1/testcases/TC_JSRangeError_001.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_012",
+      "app": "HomeStay1.0.6",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/HomeStay1.0.6",
+      "bundle": "mszs.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_012-HomeStay1.0.6.zip!TC_JSError_012-HomeStay1.0.6\\faultlogger\\jscrash-mszs.1.xxxxxx-20020066-20260717135244061.log",
+          "module_name": "mszs.1.xxxxxx",
+          "bundle_match": true,
+          "error": "SyntaxError: Unexpected Text in JSON: Invalid Token at position 0, m*c*I*a*e:/*e*a",
+          "top_frame": "components/travel_discovery/src/main/ets/model/Index.ets:65:26",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/travel_discovery/src/main/ets/model/Index.ets"
+          ],
+          "timestamp": "2026-07-17 13:52:44.061",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_012.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_014",
+      "app": "DriverLicenseExam1.0.7",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/DriverLicenseExam1.0.7",
+      "bundle": "qcjk.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_014-DriverLicenseExam1.0.7.zip!TC_JSError_014-DriverLicenseExam1.0.7/faultlogger/jscrash-qcjk.1.xxxxxx-20260716171813890.log",
+          "module_name": "qcjk.1.xxxxxx",
+          "bundle_match": true,
+          "error": "SyntaxError: nothing to repeat",
+          "top_frame": "commons/datasource/src/main/ets/ExamService.ets:345:26",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/datasource/src/main/ets/ExamService.ets"
+          ],
+          "timestamp": "2026-07-16 17:18:13.890",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_014.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_015",
+      "app": "FitnessCenter1.0.3",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/FitnessCenter1.0.3",
+      "bundle": "fit.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_015-FitnessCenter1.0.3.zip!TC_JSError_015-FitnessCenter1.0.3/faultlogger/jscrash-com.atomicservice.xxxxxx-20020067-20260717111009520.log",
+          "module_name": "com.atomicservice.xxxxxx",
+          "bundle_match": false,
+          "error": "SyntaxError: GroupName Syntax error.",
+          "top_frame": "components/search/src/main/ets/views/ResultPage.ets:163:40",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/search/src/main/ets/views/ResultPage.ets"
+          ],
+          "timestamp": "2026-07-17 11:10:09.520",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_015.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_016@TouristAttraction1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_016",
+      "app": "TouristAttraction1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/TouristAttraction1",
+      "bundle": "lyjd.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_016-TouristAttraction1.zip!TC_JSError_016-TouristAttraction1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020067-20260717155342105.log",
+          "module_name": "com.atomicservice.xxxxxx",
+          "bundle_match": false,
+          "error": "SyntaxError: ? Syntax error.",
+          "top_frame": "components/module_base/src/main/ets/util/CommonUtil.ets:10:22",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/module_base/src/main/ets/util/CommonUtil.ets"
+          ],
+          "timestamp": "2026-07-17 15:53:42.105",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_016.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_017",
+      "app": "OfficeAttendance1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/OfficeAttendance1",
+      "bundle": "swbg.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_017-OfficeAttendance1.zip!faultlogger\\jscrash-swbg.1.xxxxxx-20020068-20260720130637478.log",
+          "module_name": "swbg.1.xxxxxx",
+          "bundle_match": true,
+          "error": "SyntaxError: capture syntax error",
+          "top_frame": "scenes/agency/src/main/ets/mock/DataManager.ets:56:29",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "scenes/agency/src/main/ets/mock/DataManager.ets"
+          ],
+          "timestamp": "2026-07-20 13:06:37.478",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_017.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_018@ImageProcessing1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_018",
+      "app": "ImageProcessing1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/ImageProcessing1",
+      "bundle": "txmh.1.xxxxxx",
+      "primary_log": null,
+      "logs": [],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_018.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": [
+        "zip contains non-log file: MainEntry.ets",
+        "no crash log"
+      ]
+    },
+    {
+      "case_id": "TC_JSError_019@Exam1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_019",
+      "app": "Exam1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/Exam1",
+      "bundle": "jybk.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_019-Exam1.zip!TC_JSError_019-Exam1\\faultlogger\\jscrash-jybk.1.xxxxxx-20020070-20260722170144963.log",
+          "module_name": "jybk.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: Stack overflow!",
+          "top_frame": "components/select_category/src/main/ets/components/MainPage.ets:65:35",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/select_category/src/main/ets/components/MainPage.ets"
+          ],
+          "timestamp": "2026-07-22 17:01:44.963",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_019.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_020",
+      "app": "TeaDrinkOrders1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/TeaDrinkOrders1",
+      "bundle": "cydd.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_020-TeaDrinkOrders1.zip!TC_JSError_020-TeaDrinkOrders1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020071-20260723144759432.log",
+          "module_name": "com.atomicservice.xxxxxx",
+          "bundle_match": false,
+          "error": "RangeError: Invalid array length",
+          "top_frame": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786:28",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "features/order/src/main/ets/pages/ConfirmOrderPage.ets"
+          ],
+          "timestamp": "2026-07-23 14:47:59.432",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_020.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_021@AudioEditing1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_021",
+      "app": "AudioEditing1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/AudioEditing1",
+      "bundle": "audioediting.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_021-AudioEditing1.zip!TC_JSError_021-AudioEditing1\\faultlogger\\jscrash-audioediting.1.xxxxxx-20020072-20260810101541856.log",
+          "module_name": "audioediting.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: getIndex +elementSize > viewSize",
+          "top_frame": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:58:33",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/audio_common/src/main/ets/viewModel/EditViewModel.ets"
+          ],
+          "timestamp": "2026-08-10 10:15:41.856",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_021.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_022@HouseholdService1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_022",
+      "app": "HouseholdService1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/HouseholdService1",
+      "bundle": "jzfw.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_022-HouseholdService1.zip!TC_JSError_022-HouseholdService1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020071-20260724113645820.log",
+          "module_name": "com.atomicservice.xxxxxx",
+          "bundle_match": false,
+          "error": "RangeError: The newByteLength is out of range.",
+          "top_frame": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23:23",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets"
+          ],
+          "timestamp": "2026-07-24 11:36:45.820",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_022.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    },
+    {
+      "case_id": "TC_JSError_024@WebShortDrama1@B3",
+      "dataset": "B3",
+      "tc": "TC_JSError_024",
+      "app": "WebShortDrama1",
+      "app_dir": "data_B3/benchmarkfordfx-better/App/WebShortDrama1",
+      "bundle": "wldj.1.xxxxxx",
+      "primary_log": 0,
+      "logs": [
+        {
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_024-WebShortDrama1.zip!TC_JSError_024-WebShortDrama1/faultlogger/jscrash-wldj.1.xxxxxx-20020073-20260727160113897.log",
+          "module_name": "wldj.1.xxxxxx",
+          "bundle_match": true,
+          "error": "RangeError: The byte length of Int32Array should be a multiple of 4",
+          "top_frame": "components/feedback/src/main/ets/utils/FileUtils.ets:173:33",
+          "top_frame_map": "UNIQUE",
+          "top_frame_candidates": [
+            "components/feedback/src/main/ets/utils/FileUtils.ets"
+          ],
+          "timestamp": "2026-07-27 16:01:13.897",
+          "standard_format": true,
+          "warnings": []
+        }
+      ],
+      "scripts": [
+        "data_B3/benchmarkfordfx-better/HypiumProject/testcases/TC_JSError_024.py"
+      ],
+      "alt_scripts": [],
+      "anomalies": []
+    }
+  ]
+}
