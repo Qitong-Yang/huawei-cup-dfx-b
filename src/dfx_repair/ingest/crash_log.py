@@ -43,6 +43,13 @@ _STACK_END_RE = re.compile(
 
 # Sections that leak the answer in some hand-written logs; never part of a real faultlogger log.
 LEAKY_SECTIONS = ("Root cause", "Fix")
+# Answer headings may carry their text on the same line and need not indent the body.
+_LEAK_HEADER_RE = re.compile(r"^\s*(?:root[\s_-]*cause|fix)\s*[:：]", re.IGNORECASE)
+_SAFE_SECTION_RE = re.compile(
+    r"^\s*(?:Stacktrace(?: \(native\))?|HiLog|HybridStack|SourceMap|SourceCode|"
+    r"Variables|Page switch history|Steps to reproduce)\s*[:：]\s*$",
+    re.IGNORECASE,
+)
 
 _SOURCE_EXTS = (".ets", ".ts", ".js")
 
@@ -142,7 +149,7 @@ def _parse_frames(lines: list[str]) -> list[StackFrame]:
             continue
         if not in_stack:
             continue
-        if _STACK_END_RE.match(line):
+        if _STACK_END_RE.match(line) or _LEAK_HEADER_RE.match(line):
             break
         match = _FRAME_RE.match(line)
         if not match:
@@ -170,6 +177,8 @@ def _parse_page_history(lines: list[str]) -> list[str]:
             continue
         if not in_section:
             continue
+        if not line.strip():
+            continue
         match = _PAGE_RE.match(line)
         if not match:
             break
@@ -196,7 +205,7 @@ def parse_crash_log(text: str) -> CrashContext:
     elif not any(f.is_business for f in frames):
         warnings.append("no business frames in stack")
 
-    if any(re.match(rf"^\s*{name}\s*:\s*$", line) for line in lines for name in LEAKY_SECTIONS):
+    if any(_LEAK_HEADER_RE.match(line) for line in lines):
         warnings.append("log contains non-standard answer sections (Root cause / Fix)")
 
     return CrashContext(
@@ -213,19 +222,23 @@ def parse_crash_log(text: str) -> CrashContext:
 
 
 def strip_leaky_sections(text: str) -> str:
-    """Remove hand-written answer sections so the diagnosis side never sees them."""
+    """Remove answer sections, resuming only at a recognized crash-log header.
+
+    Indentation, blank lines, arbitrary ``Key:`` text and separators do not end an
+    answer section. This is redaction of known labels, not proof that arbitrary
+    free text is free of semantic answers; the sandbox also scans known markers.
+    """
     out: list[str] = []
     skipping = False
     for line in text.splitlines(keepends=True):
-        header = line.strip().rstrip(":").strip()
-        if any(header.lower() == name.lower() for name in LEAKY_SECTIONS) and line.strip().endswith(":"):
+        if _LEAK_HEADER_RE.match(line):
             skipping = True
             continue
         if skipping:
-            # a leaky section ends at the next unindented "Key:" header or a separator line
-            if line.strip() and not line.startswith((" ", "\t")):
-                skipping = False
-            else:
+            header = _HEADER_RE.match(line)
+            known_header = header is not None and header.group(1).lower() in _HEADER_KEYS
+            if not (known_header or _SAFE_SECTION_RE.match(line)):
                 continue
+            skipping = False
         out.append(line)
     return "".join(out)

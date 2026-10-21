@@ -22,6 +22,8 @@ from pathlib import Path
 from dfx_repair.ingest import CrashContext, decode_log_bytes, parse_crash_log
 from dfx_repair.retrieve import SourceIndex
 
+from .paths import DEFAULT_CASES, DEFAULT_DATA_ROOT
+
 logger = logging.getLogger(__name__)
 
 TC_DIR_RE = re.compile(r"^(?P<tc>TC_JS\w*?_\d{3})-(?P<app>.+)$")
@@ -175,6 +177,9 @@ def choose_primary(logs: list[dict]) -> tuple[int | None, list[str]]:
 
 
 def build_inventory(data_root: Path) -> list[dict]:
+    data_root = Path(data_root).resolve()
+    if not data_root.is_dir():
+        raise FileNotFoundError(f"data root does not exist: {data_root}")
     root = data_root
     cases: list[dict] = []
     indexes: dict[Path, SourceIndex] = {}
@@ -224,8 +229,8 @@ def build_inventory(data_root: Path) -> list[dict]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--data-root", type=Path, default=Path("data-master/data_B"))
-    parser.add_argument("--out", type=Path, default=Path("resources/cases.json"))
+    parser.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT)
+    parser.add_argument("--out", type=Path, default=DEFAULT_CASES)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 

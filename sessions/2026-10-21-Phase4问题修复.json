@@ -1,0 +1,65 @@
+{
+  "session_id": "2026-10-21-phase4-defect-fixes",
+  "date": "2026-10-21",
+  "ai_tool": "Codex",
+  "objective": "修复已复现缺陷，严谨区分候选与未解决状态，补齐回归并重跑全量评测。",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "直接在本地修改代码里的问题，解决漏洞，注意科学严谨保证逻辑清晰完整。"
+    },
+    {
+      "role": "assistant",
+      "content": "完成缓存与隔离、保守定位、评分与批处理修复；102项测试无XFAIL通过；同版本全量基线18/25、规则21/25；保留1例未解决并公开分母。"
+    }
+  ],
+  "outcome": {
+    "goal_achieved": true,
+    "scope": "已知Phase4缺陷修复，不包括模型和应用自修复能力",
+    "tests": {
+      "tests": 102,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "implementation_sha256": "0a1cc0d7bf1b130bf77e7e73f875e674f0f6e01ef13c6ea6ee4456d04cae518d",
+    "evidence_root": "eval/runs/2026-10-21-fixes",
+    "limitations": [
+      "rule candidates retain unverified assumptions",
+      "lexical scanner is not a full ArkTS AST; template expressions deliberately masked",
+      "Notes1 rule run explicitly UNRESOLVED; kept in denominator",
+      "input filtering is not an operating-system security boundary",
+      "no independent holdout evaluation or application repair verification"
+    ]
+  },
+  "files_modified": [
+    "eval/sandbox.py",
+    "eval/score.py",
+    "eval/run_baseline.py",
+    "eval/inventory.py",
+    "eval/build_ground_truth.py",
+    "src/dfx_repair/ingest/crash_log.py",
+    "src/dfx_repair/retrieve/code_context.py",
+    "src/dfx_repair/locate/result.py",
+    "src/dfx_repair/locate/stack_top.py",
+    "src/dfx_repair/locate/rules/__init__.py",
+    "src/dfx_repair/locate/rules/base.py",
+    "src/dfx_repair/locate/rules/align.py",
+    "src/dfx_repair/locate/rules/bounds.py",
+    "tests/test_review_regressions.py",
+    "README.md",
+    "docs/test-report.md",
+    "docs/phase4-review-results.json",
+    "../plan/README.md",
+    "../plan/task_plan.md",
+    "../plan/阶段进度与代码审查.md"
+  ],
+  "files_created": [
+    "eval/paths.py",
+    "src/dfx_repair/retrieve/lexical.py",
+    "tests/test_sandbox_hardening.py",
+    "tests/test_localization_hardening.py",
+    "tests/test_evaluation_hardening.py"
+  ],
+  "notes": "原始数据与人工GT标签未修改；集成期阻塞记录保留，最终仅使用实现hash一致的有效结果。"
+}

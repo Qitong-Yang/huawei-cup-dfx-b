@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from functools import lru_cache
 from pathlib import Path
 
 from dfx_repair.ingest import CrashContext
@@ -32,15 +31,22 @@ class CrashSite:
     col: int
     lines: tuple[str, ...]  # whole file, 0-based list
     aligned_from: int | None = None  # original log line when alignment moved it
+    valid: bool = True
+    warnings: tuple[str, ...] = field(default_factory=tuple)
+    alternatives: tuple[int, ...] = ()  # equally plausible lines when alignment is ambiguous
 
     @property
     def text(self) -> str:
-        return self.lines[self.line - 1]
+        return self.lines[self.line - 1] if self.valid and 1 <= self.line <= len(self.lines) else ""
 
 
-@lru_cache(maxsize=256)
 def read_lines(app_root: str, rel: str) -> tuple[str, ...]:
-    return tuple(Path(app_root, rel).read_text(encoding="utf-8", errors="replace").splitlines())
+    """Read the current snapshot; never cache mutable source text by pathname alone."""
+    root = Path(app_root).resolve(strict=True)
+    target = (root / rel).resolve(strict=True)
+    if not target.is_relative_to(root) or not target.is_file():
+        raise ValueError(f"source path is outside the app or not a file: {rel}")
+    return tuple(target.read_text(encoding="utf-8-sig", errors="strict").splitlines())
 
 
 def is_code_line(text: str) -> bool:
@@ -56,14 +62,16 @@ def message(ctx: CrashContext) -> str:
 MESSAGE_CONSTRUCTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"Cannot convert a UNDEFINED value to a JSObject", re.IGNORECASE),
      r"Object\.(keys|values|entries|assign|getOwnPropertyNames)\s*\("),
-    (re.compile(r"Unexpected .* in JSON|JSON", re.IGNORECASE), r"JSON\.parse\s*\("),
+    # Serialization failures can mention JSON too; do not classify them as parse errors.
+    (re.compile(r"circular structure", re.IGNORECASE), r"JSON\.stringify\s*\("),
+    (re.compile(r"Unexpected\b.*\bJSON|JSON(?:\.parse|\s+pars(?:e|ing))\b|(?:invalid|malformed)\s+JSON",
+                re.IGNORECASE), r"JSON\.parse\s*\("),
     (re.compile(r"Syntax error|nothing to repeat|invalid class range|capture syntax|GroupName", re.IGNORECASE),
      r"RegExp\s*\(|/.+/[gimsuy]*"),
     (re.compile(r"byte length of \w+Array|newByteLength|elementSize > viewSize", re.IGNORECASE),
      r"new\s+\w*Array\s*\(|DataView|\.get(Int|Uint|Float)\d+\s*\("),
     (re.compile(r"Invalid array length", re.IGNORECASE), r"new\s+Array\b|\.length\s*="),
     (re.compile(r"cannot be (invoked|called) without 'new'|is not callable", re.IGNORECASE), r"\w\s*\("),
-    (re.compile(r"circular structure", re.IGNORECASE), r"JSON\.stringify\s*\("),
 )
 
 

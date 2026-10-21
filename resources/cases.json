@@ -947,7 +947,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_012-HomeStay1.0.6.zip!TC_JSError_012-HomeStay1.0.6\\faultlogger\\jscrash-mszs.1.xxxxxx-20020066-20260717135244061.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_012-HomeStay1.0.6.zip!TC_JSError_012-HomeStay1.0.6/faultlogger/jscrash-mszs.1.xxxxxx-20020066-20260717135244061.log",
           "module_name": "mszs.1.xxxxxx",
           "bundle_match": true,
           "error": "SyntaxError: Unexpected Text in JSON: Invalid Token at position 0, m*c*I*a*e:/*e*a",
@@ -1037,7 +1037,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_016-TouristAttraction1.zip!TC_JSError_016-TouristAttraction1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020067-20260717155342105.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_016-TouristAttraction1.zip!TC_JSError_016-TouristAttraction1/faultlogger/jscrash-com.atomicservice.xxxxxx-20020067-20260717155342105.log",
           "module_name": "com.atomicservice.xxxxxx",
           "bundle_match": false,
           "error": "SyntaxError: ? Syntax error.",
@@ -1067,7 +1067,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_017-OfficeAttendance1.zip!faultlogger\\jscrash-swbg.1.xxxxxx-20020068-20260720130637478.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_017-OfficeAttendance1.zip!faultlogger/jscrash-swbg.1.xxxxxx-20020068-20260720130637478.log",
           "module_name": "swbg.1.xxxxxx",
           "bundle_match": true,
           "error": "SyntaxError: capture syntax error",
@@ -1115,7 +1115,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_019-Exam1.zip!TC_JSError_019-Exam1\\faultlogger\\jscrash-jybk.1.xxxxxx-20020070-20260722170144963.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_019-Exam1.zip!TC_JSError_019-Exam1/faultlogger/jscrash-jybk.1.xxxxxx-20020070-20260722170144963.log",
           "module_name": "jybk.1.xxxxxx",
           "bundle_match": true,
           "error": "RangeError: Stack overflow!",
@@ -1145,7 +1145,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_020-TeaDrinkOrders1.zip!TC_JSError_020-TeaDrinkOrders1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020071-20260723144759432.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_020-TeaDrinkOrders1.zip!TC_JSError_020-TeaDrinkOrders1/faultlogger/jscrash-com.atomicservice.xxxxxx-20020071-20260723144759432.log",
           "module_name": "com.atomicservice.xxxxxx",
           "bundle_match": false,
           "error": "RangeError: Invalid array length",
@@ -1175,7 +1175,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_021-AudioEditing1.zip!TC_JSError_021-AudioEditing1\\faultlogger\\jscrash-audioediting.1.xxxxxx-20020072-20260810101541856.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_021-AudioEditing1.zip!TC_JSError_021-AudioEditing1/faultlogger/jscrash-audioediting.1.xxxxxx-20020072-20260810101541856.log",
           "module_name": "audioediting.1.xxxxxx",
           "bundle_match": true,
           "error": "RangeError: getIndex +elementSize > viewSize",
@@ -1205,7 +1205,7 @@
       "primary_log": 0,
       "logs": [
         {
-          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_022-HouseholdService1.zip!TC_JSError_022-HouseholdService1\\faultlogger\\jscrash-com.atomicservice.xxxxxx-20020071-20260724113645820.log",
+          "path": "data_B3/benchmarkfordfx-better/Logs/故障现场/TC_JSError_022-HouseholdService1.zip!TC_JSError_022-HouseholdService1/faultlogger/jscrash-com.atomicservice.xxxxxx-20020071-20260724113645820.log",
           "module_name": "com.atomicservice.xxxxxx",
           "bundle_match": false,
           "error": "RangeError: The newByteLength is out of range.",

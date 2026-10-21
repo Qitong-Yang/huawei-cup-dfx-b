@@ -16,3 +16,8 @@ Thumbs.db
 eval/sandbox/
 eval/runs/
 .coverage
+
+# 本地审查与测试缓存
+.pytest-work/
+**/.pytest-work/
+.ruff_cache/

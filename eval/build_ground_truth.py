@@ -20,10 +20,12 @@ import json
 import logging
 from pathlib import Path
 
+from .paths import DEFAULT_CASES, DEFAULT_DATA_ROOT, DEFAULT_GROUND_TRUTH
+
 logger = logging.getLogger(__name__)
 
-DATA_ROOT = Path("data-master/data_B")
-OUT = Path("resources/ground_truth.json")
+DATA_ROOT = DEFAULT_DATA_ROOT
+OUT = DEFAULT_GROUND_TRUTH
 
 # basis values
 EXPLICIT = "test-script annotation"  # file:line written in the official test script / META
@@ -372,7 +374,7 @@ GT: list[dict] = [
 ]
 
 
-def check(cases: dict[str, dict]) -> list[str]:
+def check(cases: dict[str, dict], data_root: Path | None = None) -> list[str]:
     """Return problems; print the content of every accepted line for review."""
     problems: list[str] = []
     seen = set()
@@ -382,9 +384,12 @@ def check(cases: dict[str, dict]) -> list[str]:
         if cid not in cases:
             problems.append(f"{cid}: not in cases.json")
             continue
-        app = DATA_ROOT / cases[cid]["app_dir"]
+        app = (data_root or DATA_ROOT) / cases[cid]["app_dir"]
         refs = [gt["crash"], *gt["accepted_lines"]] if "excluded" not in gt else []
-        refs += [{"file": r["file"], "line": r["start_line"]} for r in gt.get("root_cause_locations", [])]
+        refs += [{"file": r["file"], "line": n}
+                 for r in gt.get("root_cause_locations", [])
+                 for n in (r["start_line"], r["end_line"])]
+        valid_refs = set()
         for ref in refs:
             path = app / ref["file"]
             if not path.is_file():
@@ -393,7 +398,11 @@ def check(cases: dict[str, dict]) -> list[str]:
             lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
             if not 1 <= ref["line"] <= len(lines):
                 problems.append(f"{cid}: line {ref['line']} out of range in {ref['file']}")
+            else:
+                valid_refs.add((ref["file"], ref["line"]))
         for ref in gt.get("accepted_lines", []):
+            if (ref["file"], ref["line"]) not in valid_refs:
+                continue
             text = (app / ref["file"]).read_text(encoding="utf-8", errors="replace").splitlines()
             print(f"{cid:44s} {Path(ref['file']).name}:{ref['line']:<5d} {text[ref['line'] - 1].strip()[:90]}")
     for cid in cases:
@@ -405,11 +414,14 @@ def check(cases: dict[str, dict]) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check-only", action="store_true")
+    parser.add_argument("--data-root", type=Path, default=DATA_ROOT)
+    parser.add_argument("--cases", type=Path, default=DEFAULT_CASES)
+    parser.add_argument("--out", type=Path, default=OUT)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
-    cases = {c["case_id"]: c for c in json.loads(Path("resources/cases.json").read_text())["cases"]}
-    problems = check(cases)
+    cases = {c["case_id"]: c for c in json.loads(args.cases.read_text(encoding="utf-8"))["cases"]}
+    problems = check(cases, args.data_root)
     for p in problems:
         logger.error(p)
     if problems:
@@ -417,8 +429,9 @@ def main() -> None:
     if not args.check_only:
         scorable = sum(1 for g in GT if "excluded" not in g)
         payload = {"case_count": len(GT), "scorable_count": scorable, "entries": GT}
-        OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        logger.info("wrote %s: %d entries, %d scorable", OUT, len(GT), scorable)
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        logger.info("wrote %s: %d entries, %d scorable", args.out, len(GT), scorable)
 
 
 if __name__ == "__main__":

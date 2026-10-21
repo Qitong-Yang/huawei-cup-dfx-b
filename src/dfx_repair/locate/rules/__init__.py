@@ -26,18 +26,32 @@ def locate_with_rules(case_id: str, ctx: CrashContext, index: SourceIndex,
     top = ctx.top_business_frame
     if top is None:
         return LocateResult(case_id, METHOD, None, (), assumptions=("no business frame in log",),
-                            source_hash=source_hash)
+                            source_hash=source_hash, status="UNRESOLVED",
+                            context_requests=("obtain a business stack frame",))
     mapping = index.resolve(top.path)
-    if mapping.status is MapStatus.NOT_FOUND:
+    if mapping.status is not MapStatus.UNIQUE:
         return LocateResult(case_id, METHOD, None, (), evidence=(f"top frame {top.raw}",),
-                            assumptions=(f"frame path not found: {top.path}",), source_hash=source_hash)
+                            assumptions=(f"{mapping.status.value}: {top.path}; candidates={mapping.candidates}",),
+                            source_hash=source_hash, status="UNRESOLVED",
+                            context_requests=("disambiguate source using module/build metadata",),
+                            unresolved_candidates=tuple(Location.at(f, top.line, role="crash_site_candidate")
+                                                        for f in mapping.candidates))
 
     file = mapping.candidates[0]
     site = align_crash_line(ctx, file, top.line, top.col, read_lines(str(index.app_root), file))
     evidence = [f"{ctx.error_name}: {ctx.error_message}", f"top frame {top.raw}"]
     assumptions: list[str] = []
-    if mapping.status is MapStatus.MULTIPLE:
-        assumptions.append(f"{len(mapping.candidates)} files match {top.path}; picked the first")
+    if not site.valid:
+        # An unresolved alignment invalidates the root-cause guess, not a valid
+        # original log coordinate in an otherwise uniquely identified file.
+        original_crash = (Location.at(file, top.line, role="crash_site")
+                          if 1 <= top.line <= len(site.lines) else None)
+        return LocateResult(case_id, METHOD, original_crash, (), tuple(evidence), site.warnings,
+                            source_hash=source_hash, status="UNRESOLVED",
+                            context_requests=("obtain source matching the log or disambiguate alignment",),
+                            unresolved_candidates=tuple(Location.at(file, n, role="crash_site_candidate")
+                                                        for n in site.alternatives))
+    assumptions.extend(site.warnings)
     if site.aligned_from is not None:
         evidence.append(f"log line {site.aligned_from} realigned to {site.line}: {site.text.strip()}")
 
@@ -46,7 +60,8 @@ def locate_with_rules(case_id: str, ctx: CrashContext, index: SourceIndex,
         candidates.extend(rule(ctx, site))
     candidates.sort(key=lambda c: c.score, reverse=True)
 
-    crash = Location.at(file, site.line, role="crash_site")
+    # Preserve the original logged position separately from a heuristic alignment.
+    crash = Location.at(file, top.line, role="crash_site")
     locations = [c.location for c in candidates] + [Location.at(file, site.line)]
     for c in candidates:
         evidence.extend(f"[{c.rule_id}] {e}" for e in c.evidence)
@@ -55,4 +70,5 @@ def locate_with_rules(case_id: str, ctx: CrashContext, index: SourceIndex,
         assumptions.append("no rule matched; root cause assumed at the crash site")
     score = candidates[0].score if candidates else 0.5
     return LocateResult(case_id, METHOD, crash, tuple(locations), tuple(evidence), tuple(assumptions),
-                        score, source_hash)
+                        score, source_hash, status="CANDIDATE",
+                        context_requests=("validate remaining assumptions before claiming a root cause",))

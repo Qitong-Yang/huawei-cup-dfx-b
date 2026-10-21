@@ -41,13 +41,18 @@ class SourceIndex:
     """Index of source files under one app root, keyed by file name."""
 
     def __init__(self, app_root: Path) -> None:
-        self.app_root = Path(app_root)
+        self.app_root = Path(app_root).resolve(strict=True)
+        if not self.app_root.is_dir():
+            raise ValueError(f"app source root is not a directory: {app_root}")
         self._by_name: dict[str, list[str]] = {}
         for dirpath, dirnames, filenames in os.walk(self.app_root):
-            dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
+            dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS
+                                  and not (Path(dirpath) / d).is_symlink())
             rel_dir = Path(dirpath).relative_to(self.app_root)
             for name in filenames:
-                if name.endswith(SOURCE_EXTS):
+                source = Path(dirpath) / name
+                if name.endswith(SOURCE_EXTS) and not source.is_symlink() \
+                        and source.resolve().is_relative_to(self.app_root):
                     self._by_name.setdefault(name, []).append((rel_dir / name).as_posix())
 
     @property

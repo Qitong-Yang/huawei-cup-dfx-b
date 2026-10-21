@@ -1,0 +1,781 @@
+{
+  "session_id": "2026-10-20-phase4-import-review",
+  "date": "2026-10-20",
+  "ai_tool": "Codex",
+  "objective": "导入 Phase 4 代码，运行测试与本地评测，检查逻辑缺陷。",
+  "source_archive": "C:/Users/Lenovo/Desktop/huawei-cup-dfx-b-feat-phase1-foundation.zip",
+  "archive_sha256": "c443ef7e473932993121137e4da1af65e25a9cbf44285c26ca6b10d73562b23d",
+  "imported_files": [
+    "template-master/src/dfx_repair/__init__.py",
+    "template-master/src/dfx_repair/ingest/__init__.py",
+    "template-master/src/dfx_repair/ingest/crash_log.py",
+    "template-master/src/dfx_repair/llm/__init__.py",
+    "template-master/src/dfx_repair/locate/__init__.py",
+    "template-master/src/dfx_repair/locate/result.py",
+    "template-master/src/dfx_repair/locate/rules/__init__.py",
+    "template-master/src/dfx_repair/locate/rules/align.py",
+    "template-master/src/dfx_repair/locate/rules/base.py",
+    "template-master/src/dfx_repair/locate/rules/bounds.py",
+    "template-master/src/dfx_repair/locate/stack_top.py",
+    "template-master/src/dfx_repair/metrics/__init__.py",
+    "template-master/src/dfx_repair/orchestrator/__init__.py",
+    "template-master/src/dfx_repair/repair/__init__.py",
+    "template-master/src/dfx_repair/retrieve/__init__.py",
+    "template-master/src/dfx_repair/retrieve/code_context.py",
+    "template-master/src/dfx_repair/retrieve/source_map.py",
+    "template-master/src/dfx_repair/spec/__init__.py",
+    "template-master/src/dfx_repair/verify/__init__.py",
+    "template-master/eval/__init__.py",
+    "template-master/eval/build_ground_truth.py",
+    "template-master/eval/inventory.py",
+    "template-master/eval/run_baseline.py",
+    "template-master/eval/sandbox.py",
+    "template-master/eval/score.py",
+    "template-master/tests/test_code_context.py",
+    "template-master/tests/test_crash_log.py",
+    "template-master/tests/test_rules.py",
+    "template-master/tests/test_score.py",
+    "template-master/tests/test_source_map.py",
+    "template-master/resources/cases.json",
+    "template-master/resources/ground_truth.json",
+    "template-master/pyproject.toml",
+    "template-master/uv.lock",
+    "template-master/.env.example"
+  ],
+  "existing_identical_files": [
+    "template-master/tests/README.txt",
+    "template-master/resources/README.txt",
+    "template-master/sessions/template-session.json",
+    "template-master/skill/README.txt",
+    "template-master/docs/technical-design.md",
+    "template-master/docs/test-report.md"
+  ],
+  "source_code_changes": [],
+  "status": "导入与审查完成，发现问题未修复",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "整理 Phase4 代码到本地，解释当前功能，审查逻辑缺陷与待完善项。"
+    },
+    {
+      "role": "assistant",
+      "content": "导入至 template-master；保留原始数据及原算法；重建本地案例索引；原有19项测试通过，新增9项严格XFAIL复现；重跑18/25基线和21/25规则成绩；保存报告与运行说明。"
+    }
+  ],
+  "generated_resource_changes": [
+    "resources/cases.json（本地 ZIP 路径适配）"
+  ],
+  "verification_summary": {
+    "date": "2026-10-20",
+    "environment": {
+      "python": "3.12.14",
+      "pytest": "9.1.1",
+      "ruff": "0.17.1"
+    },
+    "original_tests_passed": 19,
+    "known_defect_reproductions_xfailed": 9,
+    "ruff": "passed",
+    "inventory": {
+      "cases": 27,
+      "with_logs": 26,
+      "primary_unique_mapping": 26,
+      "scorable_curated_cases": 25
+    },
+    "src_eval_changes_from_archive": [],
+    "label_reference_check": "passed (existence only, not semantic or runtime proof)",
+    "reports": {
+      "stack_top": {
+        "result_path": "eval/runs/2026-10-20-review/stack_top_20261020_161103/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 18,
+              "total": 25
+            },
+            "range": {
+              "hits": 21,
+              "total": 25
+            },
+            "function": {
+              "hits": 23,
+              "total": 25
+            },
+            "file": {
+              "hits": 24,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 18,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:83",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": "common/datasource/src/main/ets/NoteService.ets:287",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:58",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            }
+          ],
+          "run_id": "stack_top_20261020_161103",
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.052,
+            "TC_JSError_004@BookRead2@B1": 0.051,
+            "TC_JSError_007@Calendar1@B1": 0.046,
+            "TC_JSError_001@ComprehensiveTool1@B1": 0.138,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.016,
+            "TC_JSError_010@Express1@B1": 0.049,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.049,
+            "TC_JSError_025@Music1@B1": 0.048,
+            "TC_JSError_006@Notes1@B1": 0.034,
+            "TC_JSError_026@Teleprompter1@B1": 0.03,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.05,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.093,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.121,
+            "TC_JSError_005@MoneyTrack1@B2": 0.052,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.087,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.031,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.068,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.036,
+            "TC_JSError_016@TouristAttraction1@B3": 0.061,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.031,
+            "TC_JSError_019@Exam1@B3": 0.059,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.067,
+            "TC_JSError_021@AudioEditing1@B3": 0.088,
+            "TC_JSError_022@HouseholdService1@B3": 0.063,
+            "TC_JSError_024@WebShortDrama1@B3": 0.1
+          },
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      },
+      "rules": {
+        "result_path": "eval/runs/2026-10-20-review/rules_20261020_161527/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 21,
+              "total": 25
+            },
+            "range": {
+              "hits": 23,
+              "total": 25
+            },
+            "function": {
+              "hits": 23,
+              "total": 25
+            },
+            "file": {
+              "hits": 24,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 21,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:78",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:114",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": "common/datasource/src/main/ets/NoteService.ets:287",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:52",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            }
+          ],
+          "run_id": "rules_20261020_161527",
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.05,
+            "TC_JSError_004@BookRead2@B1": 0.057,
+            "TC_JSError_007@Calendar1@B1": 0.05,
+            "TC_JSError_001@ComprehensiveTool1@B1": 0.135,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.019,
+            "TC_JSError_010@Express1@B1": 0.055,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.052,
+            "TC_JSError_025@Music1@B1": 0.052,
+            "TC_JSError_006@Notes1@B1": 0.031,
+            "TC_JSError_026@Teleprompter1@B1": 0.031,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.052,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.082,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.114,
+            "TC_JSError_005@MoneyTrack1@B2": 0.054,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.084,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.029,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.041,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.032,
+            "TC_JSError_016@TouristAttraction1@B3": 0.052,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.035,
+            "TC_JSError_019@Exam1@B3": 0.032,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.038,
+            "TC_JSError_021@AudioEditing1@B3": 0.064,
+            "TC_JSError_022@HouseholdService1@B3": 0.039,
+            "TC_JSError_024@WebShortDrama1@B3": 0.079
+          },
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      }
+    },
+    "known_metric_issue": "function includes one false root-function match in ComprehensiveNews1 003 for both methods; exact unaffected",
+    "did_run_harmonyos_validation": false
+  },
+  "files_created": [
+    "tests/test_review_regressions.py",
+    "docs/phase4-review-results.json",
+    "../plan/阶段进度与代码审查.md",
+    "../plan/gt_review.md"
+  ],
+  "files_modified": [
+    "README.md",
+    "docs/test-report.md",
+    "../plan/README.md",
+    "../plan/task_plan.md"
+  ]
+}

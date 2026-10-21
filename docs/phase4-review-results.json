@@ -1,0 +1,2161 @@
+{
+  "schema_version": 2,
+  "current_state": "phase4_known_defects_fixed",
+  "before_fix": {
+    "date": "2026-10-20",
+    "environment": {
+      "python": "3.12.14",
+      "pytest": "9.1.1",
+      "ruff": "0.17.1"
+    },
+    "original_tests_passed": 19,
+    "known_defect_reproductions_xfailed": 9,
+    "ruff": "passed",
+    "inventory": {
+      "cases": 27,
+      "with_logs": 26,
+      "primary_unique_mapping": 26,
+      "scorable_curated_cases": 25
+    },
+    "src_eval_changes_from_archive": [],
+    "label_reference_check": "passed (existence only, not semantic or runtime proof)",
+    "reports": {
+      "stack_top": {
+        "result_path": "eval/runs/2026-10-20-review/stack_top_20261020_161103/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 18,
+              "total": 25
+            },
+            "range": {
+              "hits": 21,
+              "total": 25
+            },
+            "function": {
+              "hits": 23,
+              "total": 25
+            },
+            "file": {
+              "hits": 24,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 18,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:83",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": "common/datasource/src/main/ets/NoteService.ets:287",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:58",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            }
+          ],
+          "run_id": "stack_top_20261020_161103",
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.052,
+            "TC_JSError_004@BookRead2@B1": 0.051,
+            "TC_JSError_007@Calendar1@B1": 0.046,
+            "TC_JSError_001@ComprehensiveTool1@B1": 0.138,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.016,
+            "TC_JSError_010@Express1@B1": 0.049,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.049,
+            "TC_JSError_025@Music1@B1": 0.048,
+            "TC_JSError_006@Notes1@B1": 0.034,
+            "TC_JSError_026@Teleprompter1@B1": 0.03,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.05,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.093,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.121,
+            "TC_JSError_005@MoneyTrack1@B2": 0.052,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.087,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.031,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.068,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.036,
+            "TC_JSError_016@TouristAttraction1@B3": 0.061,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.031,
+            "TC_JSError_019@Exam1@B3": 0.059,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.067,
+            "TC_JSError_021@AudioEditing1@B3": 0.088,
+            "TC_JSError_022@HouseholdService1@B3": 0.063,
+            "TC_JSError_024@WebShortDrama1@B3": 0.1
+          },
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      },
+      "rules": {
+        "result_path": "eval/runs/2026-10-20-review/rules_20261020_161527/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 21,
+              "total": 25
+            },
+            "range": {
+              "hits": 23,
+              "total": 25
+            },
+            "function": {
+              "hits": 23,
+              "total": 25
+            },
+            "file": {
+              "hits": 24,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 21,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:78",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:114",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": "common/datasource/src/main/ets/NoteService.ets:287",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:52",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true
+            }
+          ],
+          "run_id": "rules_20261020_161527",
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.05,
+            "TC_JSError_004@BookRead2@B1": 0.057,
+            "TC_JSError_007@Calendar1@B1": 0.05,
+            "TC_JSError_001@ComprehensiveTool1@B1": 0.135,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.019,
+            "TC_JSError_010@Express1@B1": 0.055,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.052,
+            "TC_JSError_025@Music1@B1": 0.052,
+            "TC_JSError_006@Notes1@B1": 0.031,
+            "TC_JSError_026@Teleprompter1@B1": 0.031,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.052,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.082,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.114,
+            "TC_JSError_005@MoneyTrack1@B2": 0.054,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.084,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.029,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.041,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.032,
+            "TC_JSError_016@TouristAttraction1@B3": 0.052,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.035,
+            "TC_JSError_019@Exam1@B3": 0.032,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.038,
+            "TC_JSError_021@AudioEditing1@B3": 0.064,
+            "TC_JSError_022@HouseholdService1@B3": 0.039,
+            "TC_JSError_024@WebShortDrama1@B3": 0.079
+          },
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      }
+    },
+    "known_metric_issue": "function includes one false root-function match in ComprehensiveNews1 003 for both methods; exact unaffected",
+    "did_run_harmonyos_validation": false
+  },
+  "after_fix": {
+    "completed_date": "2026-10-21",
+    "implementation_sha256": "0a1cc0d7bf1b130bf77e7e73f875e674f0f6e01ef13c6ea6ee4456d04cae518d",
+    "tests": {
+      "tests": 102,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ruff": "passed",
+    "known_regressions_now_passing": 9,
+    "xfail_count": 0,
+    "reports": {
+      "stack_top": {
+        "result_path": "eval/runs/2026-10-21-fixes/stack_top_20261020_160206_022052_915cca85/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 18,
+              "total": 25
+            },
+            "range": {
+              "hits": 21,
+              "total": 25
+            },
+            "function": {
+              "hits": 22,
+              "total": 25
+            },
+            "file": {
+              "hits": 24,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 18,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "invalid_predictions": {},
+          "unknown_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:83",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:110",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": "common/datasource/src/main/ets/NoteService.ets:287",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:58",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            }
+          ],
+          "run_id": "stack_top_20261020_160206_022052_915cca85",
+          "configuration": {
+            "method": "stack_top",
+            "data_root": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\data_B",
+            "cases_path": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\resources\\cases.json",
+            "cases_sha256": "30c7ec833d6a30fbc57fe1ec62939aaac30168fd4f64849193edb8c5ab3cdb26",
+            "ground_truth_path": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\resources\\ground_truth.json",
+            "ground_truth_sha256": "c009872b741ee690972f09975248d3098d4620a83672622f50d329ceaf3a9099",
+            "sandbox_root": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\eval\\sandbox",
+            "rebuild": false,
+            "implementation_sha256": "0a1cc0d7bf1b130bf77e7e73f875e674f0f6e01ef13c6ea6ee4456d04cae518d",
+            "python": "3.12.14",
+            "started_at_utc": "2026-10-20T16:02:06.022052+00:00"
+          },
+          "case_outcomes": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.876886,
+              "source_hash": "b2185661447e55b2",
+              "source_digest": "b2185661447e55b26cd19b5ab208fd62402dc6fd73c39dccf36e2045a617a9a6",
+              "log_hash": "0c7802fec1d2912c156acc7b542cf4f6a39370fa80c9afcb149706e8c34d9896",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.432213,
+              "total_seconds": 2.309451
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.911784,
+              "source_hash": "6ead0ad2bbb8e4a2",
+              "source_digest": "6ead0ad2bbb8e4a2790d71856985af63dea507f78967b1495486332d59b26256",
+              "log_hash": "a378f90b3f15005af12fa4e2d461e234086b2666e21024b912f25801c338205f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.373411,
+              "total_seconds": 2.285515
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.50093,
+              "source_hash": "4d38f66667e6631c",
+              "source_digest": "4d38f66667e6631c1cec620a4031df9d68a0c705a8c7637f3792388c6e970e25",
+              "log_hash": "e2e3a01f557c5c92e5edc64a6b50d471c840e27be9cca80d39d561e60a7565a7",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.31874,
+              "total_seconds": 1.820052
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 4.868098,
+              "source_hash": "3e8c5bc62629b550",
+              "source_digest": "3e8c5bc62629b5504fe6fb1f24b59324d9537e4293665c93c9a7df3eaf719b3c",
+              "log_hash": "1a91e1a695e680b22b777f5f59ba356c1aaa0d229ffac468387b9baa57e37986",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 1.093214,
+              "total_seconds": 5.961652
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.626919,
+              "source_hash": "afa6f6b95245dba8",
+              "source_digest": "afa6f6b95245dba8886e2d420d583a74278b0060ccf351849dcd553588738f88",
+              "log_hash": "62991a6c40792ba5940bfc870a475bdb07cd1f2c1c60a7c6f754e1cb58cefd43",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.132056,
+              "total_seconds": 0.759281
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.804299,
+              "source_hash": "f6eb9b35503bb603",
+              "source_digest": "f6eb9b35503bb6037cd4473f4f64993590ce652e57f785b59e7cf87df18a88d0",
+              "log_hash": "6f803e1a39e2bdf6775daa9e0ab14d53e8c00d50eee47a3e8f3039dba860353e",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.383516,
+              "total_seconds": 2.188178
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.617852,
+              "source_hash": "af0bafeaa9b0eb02",
+              "source_digest": "af0bafeaa9b0eb02eeef31a26289509baa6aa9fb7d7d0a8e6da5a4ebecac1927",
+              "log_hash": "05d949a75fb35df887e91d2d96d7019c3ee4db68206f024714bff55b75d10e17",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.345642,
+              "total_seconds": 1.963779
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.815388,
+              "source_hash": "d9da350c2f02c2b7",
+              "source_digest": "d9da350c2f02c2b774cec660e919e7a95718dda64c4724e87a7aa41ef8e8a03a",
+              "log_hash": "2c92dcd8332ad428b7e4607747abeded1f7d0f28e99ccb2af62917d922231d89",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.369018,
+              "total_seconds": 2.184755
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.907304,
+              "source_hash": "26b23301fbebee59",
+              "source_digest": "26b23301fbebee59e232deeb0a39153442ebc1e454f1bceb2c1343e72cd44c0a",
+              "log_hash": "a15d0ca68e9b803892d46566517147812f07a914684cb12f655b8ee7b6ca25de",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.179316,
+              "total_seconds": 1.086913
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.933331,
+              "source_hash": "e6bebdf8584f5765",
+              "source_digest": "e6bebdf8584f576549a0cd5e344a066b6b846e615f2ed73355feb163234dac7e",
+              "log_hash": "d306098cdbd0c41c97dd16aca15731261c618743237998646edea823a672f661",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.193619,
+              "total_seconds": 1.127286
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.558921,
+              "source_hash": "10e5f0d6e3acc3b4",
+              "source_digest": "10e5f0d6e3acc3b4f75a8d33507870523644cc8f49baed1997fe5bcc30f76c35",
+              "log_hash": "4bae7975f5abd28fd2187a93f899c40253a72abb16e3b3201bdc1b7499169b01",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.315087,
+              "total_seconds": 1.874322
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.662188,
+              "source_hash": "e56cf9617d8e61ad",
+              "source_digest": "e56cf9617d8e61adae4974980f240466c32a37f2def10339a8621720a8b4f887",
+              "log_hash": "62b2a1cbe7d858e7e5dfbc72a6154c1a3caa32f0263ccfeb1b8ddec410675ac4",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.56916,
+              "total_seconds": 3.231693
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 3.834011,
+              "source_hash": "8251b493fb22c8ce",
+              "source_digest": "8251b493fb22c8ce37fda38916cacba47f60d21089b10b8af01de71cf7b6cf8b",
+              "log_hash": "6f5261c0c3f559afee94148b5c3f030854fdf29b1845e12b9ad387e45afd6ec8",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.969531,
+              "total_seconds": 4.803871
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.752674,
+              "source_hash": "ac947ef046eb4e88",
+              "source_digest": "ac947ef046eb4e881d49b485abea3173e20583fed5d31611f580dd28e21d4ca6",
+              "log_hash": "50bf1247fab8c358909fb4d42c9bf9e2136c8fcaf94430717043d37d73669c7e",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.40595,
+              "total_seconds": 2.158914
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.88454,
+              "source_hash": "42a0b3cfca0429b6",
+              "source_digest": "42a0b3cfca0429b6eeca97c59b3611f05ab458d1a748c3fb8a022cb19ac17810",
+              "log_hash": "f5762474b566b8a278d96a663764d82f3d62868b8030bf0e7a354cbb7f12cb64",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.571376,
+              "total_seconds": 3.456219
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.984983,
+              "source_hash": "0cf69e85f1fb0000",
+              "source_digest": "0cf69e85f1fb00006e6e5330a360925553fdd806c292eac99621fa8173965f6b",
+              "log_hash": "2ee19cb4afc516696cf63db4ca3b53a0c6f032f53f0dd1601b46272a8443a66f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.200592,
+              "total_seconds": 1.185858
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.45937,
+              "source_hash": "5e4d61e6fe747e8f",
+              "source_digest": "5e4d61e6fe747e8fbdcdd6204bdccae7329cdfd56204fcaae94c7d636081c750",
+              "log_hash": "d7ba2a2bf0655e804784f0ad04e6de6a21f7fb4430d82670486120932d1e0009",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.302711,
+              "total_seconds": 1.762661
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.19635,
+              "source_hash": "f4720888676bfd70",
+              "source_digest": "f4720888676bfd7046b4bf73fdd68e1726569d907bc9ad4a1d9de1c1fdf488cd",
+              "log_hash": "302805480fb1b453445122affc290c453b88811fd27263cfb97ecabebbb0ebe1",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.239312,
+              "total_seconds": 1.435971
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.629324,
+              "source_hash": "484904428fbd9708",
+              "source_digest": "484904428fbd970822b709395aca1c57c1a455b714d29e27b0dff871943f8e3e",
+              "log_hash": "73108d5740313e921ac0722fa657a4f6468ff4a9d5538905bd095d730241316f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.328559,
+              "total_seconds": 1.958174
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.015448,
+              "source_hash": "63f8bb61cda4d4cb",
+              "source_digest": "63f8bb61cda4d4cb48fee3d5b3b10e422e82e2cacd561856150b6f2e1b002995",
+              "log_hash": "6982edd1cb9b8c2056434e488299aa99e3ec887ea33e423f1cf0e76d4146be2b",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.18134,
+              "total_seconds": 1.197076
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.12452,
+              "source_hash": "6908c08dd687d627",
+              "source_digest": "6908c08dd687d6274a53a2c3288207a111ab08593b7c6e1cf8695cfc9531dbb0",
+              "log_hash": "9e39ac1fd8879bce97d29d219a79569a8e5eeb35b920dfbbe1e6d43d1c84b941",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.213371,
+              "total_seconds": 1.338187
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.1338,
+              "source_hash": "98159b6c0b24ea73",
+              "source_digest": "98159b6c0b24ea7323f9739ab9703055c7471d9196df70b9e8ae33a7c8a8dee2",
+              "log_hash": "dbc732d0769c0293960771da3230bd1c7f321049e60ce01270882206d41270c1",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.217506,
+              "total_seconds": 1.351616
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.870084,
+              "source_hash": "90222ae3613f27aa",
+              "source_digest": "90222ae3613f27aaa4a6ad9e9cabfb66f54cb1de079354c57993b09a2074a83f",
+              "log_hash": "e3c5caf418873eeababb0bc900f046db00366fb5e489f63c868cbbc018d86289",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.381425,
+              "total_seconds": 2.251814
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.279219,
+              "source_hash": "21517aff13339be3",
+              "source_digest": "21517aff13339be354204edeff71c1afc8387dab390b14a30f9d4efbe11d1be3",
+              "log_hash": "23389c850924ba4607d016b661eb8b38c763b30b60ca755ded5bfd515c12d80d",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.264899,
+              "total_seconds": 1.544425
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "status": "CANDIDATE",
+              "reason": "root cause is assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.872048,
+              "source_hash": "6dc870d448c78576",
+              "source_digest": "6dc870d448c785763cd97d358438d7c6a892589b230ce64ce85039a65fd3ed11",
+              "log_hash": "715171443893843de8eb0855ca78370a66de3474269deaa96283e036b72abf0d",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.58052,
+              "total_seconds": 3.452878
+            }
+          ],
+          "coverage": {
+            "scorable_total": 25,
+            "executed": 25,
+            "candidate": 25,
+            "unresolved": 0,
+            "blocked": 0,
+            "error": 0
+          },
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.432213,
+            "TC_JSError_004@BookRead2@B1": 0.373411,
+            "TC_JSError_007@Calendar1@B1": 0.31874,
+            "TC_JSError_001@ComprehensiveTool1@B1": 1.093214,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.132056,
+            "TC_JSError_010@Express1@B1": 0.383516,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.345642,
+            "TC_JSError_025@Music1@B1": 0.369018,
+            "TC_JSError_006@Notes1@B1": 0.179316,
+            "TC_JSError_026@Teleprompter1@B1": 0.193619,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.315087,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.56916,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.969531,
+            "TC_JSError_005@MoneyTrack1@B2": 0.40595,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.571376,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.200592,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.302711,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.239312,
+            "TC_JSError_016@TouristAttraction1@B3": 0.328559,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.18134,
+            "TC_JSError_019@Exam1@B3": 0.213371,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.217506,
+            "TC_JSError_021@AudioEditing1@B3": 0.381425,
+            "TC_JSError_022@HouseholdService1@B3": 0.264899,
+            "TC_JSError_024@WebShortDrama1@B3": 0.58052
+          },
+          "total_seconds": 54.822036,
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      },
+      "rules": {
+        "result_path": "eval/runs/2026-10-21-fixes/rules_20261020_160206_018054_669fe65a/score.json",
+        "summary": {
+          "rates": {
+            "exact": {
+              "hits": 21,
+              "total": 25
+            },
+            "range": {
+              "hits": 23,
+              "total": 25
+            },
+            "function": {
+              "hits": 22,
+              "total": 25
+            },
+            "file": {
+              "hits": 23,
+              "total": 25
+            },
+            "top3_exact": {
+              "hits": 21,
+              "total": 25
+            }
+          },
+          "excluded": {
+            "TC_JSError_002@ComprehensiveNews1@B2": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+            "TC_JSError_018@ImageProcessing1@B3": "no crash log: the archive contains MainEntry.ets instead of a jscrash log."
+          },
+          "missing_predictions": [],
+          "invalid_predictions": {},
+          "unknown_predictions": [],
+          "cases": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "predicted": "components/bill_chart/src/main/ets/components/BillBarChart.ets:228",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "predicted": "feature/book_home/src/main/ets/views/BookViewListPage.ets:21",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "predicted": "components/date_calculation/src/main/ets/utils/Utils.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "predicted": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets:78",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "predicted": "commons/component/src/main/ets/utils/PropUtil.js:3",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "predicted": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets:354",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "predicted": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets:114",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "predicted": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets:190",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "predicted": null,
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "predicted": "components/teleprompter/src/main/ets/components/ConfigSheet.ets:232",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "predicted": "commons/utils/src/main/ets/player/VideoPlayPage.ets:72",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "predicted": "features/order/src/main/ets/views/OrderInfoPage.ets:119",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "predicted": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets:111",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": false,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "predicted": "features/statistics/src/main/ets/components/CalendarSummary.ets:55",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "predicted": "components/aggregated_share/src/main/ets/views/ShareView.ets:40",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "predicted": "components/travel_discovery/src/main/ets/model/Index.ets:65",
+              "hits": {
+                "exact": false,
+                "range": false,
+                "function": false,
+                "file": false
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "predicted": "commons/datasource/src/main/ets/ExamService.ets:345",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "predicted": "components/search/src/main/ets/views/ResultPage.ets:163",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "predicted": "components/module_base/src/main/ets/util/CommonUtil.ets:10",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "predicted": "scenes/agency/src/main/ets/mock/DataManager.ets:56",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "predicted": "components/select_category/src/main/ets/components/MainPage.ets:65",
+              "hits": {
+                "exact": false,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": false,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "predicted": "features/order/src/main/ets/pages/ConfirmOrderPage.ets:786",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "predicted": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets:52",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "predicted": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets:23",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "predicted": "components/feedback/src/main/ets/utils/FileUtils.ets:173",
+              "hits": {
+                "exact": true,
+                "range": true,
+                "function": true,
+                "file": true
+              },
+              "topk_exact": true,
+              "invalid_reason": null
+            }
+          ],
+          "run_id": "rules_20261020_160206_018054_669fe65a",
+          "configuration": {
+            "method": "rules",
+            "data_root": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\data_B",
+            "cases_path": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\resources\\cases.json",
+            "cases_sha256": "30c7ec833d6a30fbc57fe1ec62939aaac30168fd4f64849193edb8c5ab3cdb26",
+            "ground_truth_path": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\resources\\ground_truth.json",
+            "ground_truth_sha256": "c009872b741ee690972f09975248d3098d4620a83672622f50d329ceaf3a9099",
+            "sandbox_root": "C:\\Users\\Lenovo\\Desktop\\华为杯竞赛\\template-master\\eval\\sandbox",
+            "rebuild": false,
+            "implementation_sha256": "0a1cc0d7bf1b130bf77e7e73f875e674f0f6e01ef13c6ea6ee4456d04cae518d",
+            "python": "3.12.14",
+            "started_at_utc": "2026-10-20T16:02:06.018054+00:00"
+          },
+          "case_outcomes": [
+            {
+              "case_id": "TC_JSError_002@AccountingApp1@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.880907,
+              "source_hash": "b2185661447e55b2",
+              "source_digest": "b2185661447e55b26cd19b5ab208fd62402dc6fd73c39dccf36e2045a617a9a6",
+              "log_hash": "0c7802fec1d2912c156acc7b542cf4f6a39370fa80c9afcb149706e8c34d9896",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.433282,
+              "total_seconds": 2.314545
+            },
+            {
+              "case_id": "TC_JSError_004@BookRead2@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.906025,
+              "source_hash": "6ead0ad2bbb8e4a2",
+              "source_digest": "6ead0ad2bbb8e4a2790d71856985af63dea507f78967b1495486332d59b26256",
+              "log_hash": "a378f90b3f15005af12fa4e2d461e234086b2666e21024b912f25801c338205f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.377971,
+              "total_seconds": 2.284316
+            },
+            {
+              "case_id": "TC_JSError_007@Calendar1@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.500957,
+              "source_hash": "4d38f66667e6631c",
+              "source_digest": "4d38f66667e6631c1cec620a4031df9d68a0c705a8c7637f3792388c6e970e25",
+              "log_hash": "e2e3a01f557c5c92e5edc64a6b50d471c840e27be9cca80d39d561e60a7565a7",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.318582,
+              "total_seconds": 1.819913
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+              "status": "CANDIDATE",
+              "reason": "[R-BOUNDS-PARTIAL] runtime input must establish that index2 can reach list.length; [R-BOUNDS-PARTIAL] exclude sparse elements, upstream mutation, and other guards before repair",
+              "stage": "locate",
+              "sandbox_seconds": 4.864455,
+              "source_hash": "3e8c5bc62629b550",
+              "source_digest": "3e8c5bc62629b5504fe6fb1f24b59324d9537e4293665c93c9a7df3eaf719b3c",
+              "log_hash": "1a91e1a695e680b22b777f5f59ba356c1aaa0d229ffac468387b9baa57e37986",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 1.099887,
+              "total_seconds": 5.964663
+            },
+            {
+              "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.623794,
+              "source_hash": "afa6f6b95245dba8",
+              "source_digest": "afa6f6b95245dba8886e2d420d583a74278b0060ccf351849dcd553588738f88",
+              "log_hash": "62991a6c40792ba5940bfc870a475bdb07cd1f2c1c60a7c6f754e1cb58cefd43",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.132314,
+              "total_seconds": 0.756416
+            },
+            {
+              "case_id": "TC_JSError_010@Express1@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.800144,
+              "source_hash": "f6eb9b35503bb603",
+              "source_digest": "f6eb9b35503bb6037cd4473f4f64993590ce652e57f785b59e7cf87df18a88d0",
+              "log_hash": "6f803e1a39e2bdf6775daa9e0ab14d53e8c00d50eee47a3e8f3039dba860353e",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.400641,
+              "total_seconds": 2.201202
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+              "status": "CANDIDATE",
+              "reason": "line alignment is heuristic; source version remains unverified; no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.609077,
+              "source_hash": "af0bafeaa9b0eb02",
+              "source_digest": "af0bafeaa9b0eb02eeef31a26289509baa6aa9fb7d7d0a8e6da5a4ebecac1927",
+              "log_hash": "05d949a75fb35df887e91d2d96d7019c3ee4db68206f024714bff55b75d10e17",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.349615,
+              "total_seconds": 1.959021
+            },
+            {
+              "case_id": "TC_JSError_025@Music1@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.809054,
+              "source_hash": "d9da350c2f02c2b7",
+              "source_digest": "d9da350c2f02c2b774cec660e919e7a95718dda64c4724e87a7aa41ef8e8a03a",
+              "log_hash": "2c92dcd8332ad428b7e4607747abeded1f7d0f28e99ccb2af62917d922231d89",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.37275,
+              "total_seconds": 2.182143
+            },
+            {
+              "case_id": "TC_JSError_006@Notes1@B1",
+              "status": "UNRESOLVED",
+              "reason": "no supported source line near log position",
+              "stage": "locate",
+              "sandbox_seconds": 0.905325,
+              "source_hash": "26b23301fbebee59",
+              "source_digest": "26b23301fbebee59e232deeb0a39153442ebc1e454f1bceb2c1343e72cd44c0a",
+              "log_hash": "a15d0ca68e9b803892d46566517147812f07a914684cb12f655b8ee7b6ca25de",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.183596,
+              "total_seconds": 1.089206
+            },
+            {
+              "case_id": "TC_JSError_026@Teleprompter1@B1",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.946075,
+              "source_hash": "e6bebdf8584f5765",
+              "source_digest": "e6bebdf8584f576549a0cd5e344a066b6b846e615f2ed73355feb163234dac7e",
+              "log_hash": "d306098cdbd0c41c97dd16aca15731261c618743237998646edea823a672f661",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.2028,
+              "total_seconds": 1.149199
+            },
+            {
+              "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.544981,
+              "source_hash": "10e5f0d6e3acc3b4",
+              "source_digest": "10e5f0d6e3acc3b4f75a8d33507870523644cc8f49baed1997fe5bcc30f76c35",
+              "log_hash": "4bae7975f5abd28fd2187a93f899c40253a72abb16e3b3201bdc1b7499169b01",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.32053,
+              "total_seconds": 1.865786
+            },
+            {
+              "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.650654,
+              "source_hash": "e56cf9617d8e61ad",
+              "source_digest": "e56cf9617d8e61adae4974980f240466c32a37f2def10339a8621720a8b4f887",
+              "log_hash": "62b2a1cbe7d858e7e5dfbc72a6154c1a3caa32f0263ccfeb1b8ddec410675ac4",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.570576,
+              "total_seconds": 3.22153
+            },
+            {
+              "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 3.826204,
+              "source_hash": "8251b493fb22c8ce",
+              "source_digest": "8251b493fb22c8ce37fda38916cacba47f60d21089b10b8af01de71cf7b6cf8b",
+              "log_hash": "6f5261c0c3f559afee94148b5c3f030854fdf29b1845e12b9ad387e45afd6ec8",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.977894,
+              "total_seconds": 4.804411
+            },
+            {
+              "case_id": "TC_JSError_005@MoneyTrack1@B2",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.741472,
+              "source_hash": "ac947ef046eb4e88",
+              "source_digest": "ac947ef046eb4e881d49b485abea3173e20583fed5d31611f580dd28e21d4ca6",
+              "log_hash": "50bf1247fab8c358909fb4d42c9bf9e2136c8fcaf94430717043d37d73669c7e",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.405918,
+              "total_seconds": 2.14776
+            },
+            {
+              "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.881752,
+              "source_hash": "42a0b3cfca0429b6",
+              "source_digest": "42a0b3cfca0429b6eeca97c59b3611f05ab458d1a748c3fb8a022cb19ac17810",
+              "log_hash": "f5762474b566b8a278d96a663764d82f3d62868b8030bf0e7a354cbb7f12cb64",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.569402,
+              "total_seconds": 3.451451
+            },
+            {
+              "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 0.98955,
+              "source_hash": "0cf69e85f1fb0000",
+              "source_digest": "0cf69e85f1fb00006e6e5330a360925553fdd806c292eac99621fa8173965f6b",
+              "log_hash": "2ee19cb4afc516696cf63db4ca3b53a0c6f032f53f0dd1601b46272a8443a66f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.201402,
+              "total_seconds": 1.191262
+            },
+            {
+              "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.460727,
+              "source_hash": "5e4d61e6fe747e8f",
+              "source_digest": "5e4d61e6fe747e8fbdcdd6204bdccae7329cdfd56204fcaae94c7d636081c750",
+              "log_hash": "d7ba2a2bf0655e804784f0ad04e6de6a21f7fb4430d82670486120932d1e0009",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.308277,
+              "total_seconds": 1.76931
+            },
+            {
+              "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.188063,
+              "source_hash": "f4720888676bfd70",
+              "source_digest": "f4720888676bfd7046b4bf73fdd68e1726569d907bc9ad4a1d9de1c1fdf488cd",
+              "log_hash": "302805480fb1b453445122affc290c453b88811fd27263cfb97ecabebbb0ebe1",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.244653,
+              "total_seconds": 1.433018
+            },
+            {
+              "case_id": "TC_JSError_016@TouristAttraction1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.627894,
+              "source_hash": "484904428fbd9708",
+              "source_digest": "484904428fbd970822b709395aca1c57c1a455b714d29e27b0dff871943f8e3e",
+              "log_hash": "73108d5740313e921ac0722fa657a4f6468ff4a9d5538905bd095d730241316f",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.328147,
+              "total_seconds": 1.956449
+            },
+            {
+              "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.014473,
+              "source_hash": "63f8bb61cda4d4cb",
+              "source_digest": "63f8bb61cda4d4cb48fee3d5b3b10e422e82e2cacd561856150b6f2e1b002995",
+              "log_hash": "6982edd1cb9b8c2056434e488299aa99e3ec887ea33e423f1cf0e76d4146be2b",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.183113,
+              "total_seconds": 1.197868
+            },
+            {
+              "case_id": "TC_JSError_019@Exam1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.122055,
+              "source_hash": "6908c08dd687d627",
+              "source_digest": "6908c08dd687d6274a53a2c3288207a111ab08593b7c6e1cf8695cfc9531dbb0",
+              "log_hash": "9e39ac1fd8879bce97d29d219a79569a8e5eeb35b920dfbbe1e6d43d1c84b941",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.216025,
+              "total_seconds": 1.338359
+            },
+            {
+              "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.128169,
+              "source_hash": "98159b6c0b24ea73",
+              "source_digest": "98159b6c0b24ea7323f9739ab9703055c7471d9196df70b9e8ae33a7c8a8dee2",
+              "log_hash": "dbc732d0769c0293960771da3230bd1c7f321049e60ce01270882206d41270c1",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.226641,
+              "total_seconds": 1.355075
+            },
+            {
+              "case_id": "TC_JSError_021@AudioEditing1@B3",
+              "status": "CANDIDATE",
+              "reason": "[R-BOUNDS-LOOP] runtime must confirm a terminal iteration reaches the exclusive buffer extent; [R-BOUNDS-LOOP] verify buffer alignment, positive step, channel layout, and control-flow paths",
+              "stage": "locate",
+              "sandbox_seconds": 1.862972,
+              "source_hash": "90222ae3613f27aa",
+              "source_digest": "90222ae3613f27aaa4a6ad9e9cabfb66f54cb1de079354c57993b09a2074a83f",
+              "log_hash": "e3c5caf418873eeababb0bc900f046db00366fb5e489f63c868cbbc018d86289",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.383442,
+              "total_seconds": 2.246717
+            },
+            {
+              "case_id": "TC_JSError_022@HouseholdService1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 1.277396,
+              "source_hash": "21517aff13339be3",
+              "source_digest": "21517aff13339be354204edeff71c1afc8387dab390b14a30f9d4efbe11d1be3",
+              "log_hash": "23389c850924ba4607d016b661eb8b38c763b30b60ca755ded5bfd515c12d80d",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.265911,
+              "total_seconds": 1.543626
+            },
+            {
+              "case_id": "TC_JSError_024@WebShortDrama1@B3",
+              "status": "CANDIDATE",
+              "reason": "no rule matched; root cause assumed at the crash site",
+              "stage": "locate",
+              "sandbox_seconds": 2.846074,
+              "source_hash": "6dc870d448c78576",
+              "source_digest": "6dc870d448c785763cd97d358438d7c6a892589b230ce64ce85039a65fd3ed11",
+              "log_hash": "715171443893843de8eb0855ca78370a66de3474269deaa96283e036b72abf0d",
+              "policy_hash": "17fbb5335835884680786e85ee6f9cb460a730159bdf7e7d03e995d05438550b",
+              "locate_seconds": 0.579763,
+              "total_seconds": 3.42616
+            }
+          ],
+          "coverage": {
+            "scorable_total": 25,
+            "executed": 25,
+            "candidate": 24,
+            "unresolved": 1,
+            "blocked": 0,
+            "error": 0
+          },
+          "locate_seconds": {
+            "TC_JSError_002@AccountingApp1@B1": 0.433282,
+            "TC_JSError_004@BookRead2@B1": 0.377971,
+            "TC_JSError_007@Calendar1@B1": 0.318582,
+            "TC_JSError_001@ComprehensiveTool1@B1": 1.099887,
+            "TC_JSError_009@EnterpriseRecruitment2@B1": 0.132314,
+            "TC_JSError_010@Express1@B1": 0.400641,
+            "TC_JSError_005@MoneyTrack1_2@B1": 0.349615,
+            "TC_JSError_025@Music1@B1": 0.37275,
+            "TC_JSError_006@Notes1@B1": 0.183596,
+            "TC_JSError_026@Teleprompter1@B1": 0.2028,
+            "TC_JSError_011@ChildrenEducation1@B2": 0.32053,
+            "TC_JSError_001@ComprehensiveMall1@B2": 0.570576,
+            "TC_JSError_003@ComprehensiveNews1@B2": 0.977894,
+            "TC_JSError_005@MoneyTrack1@B2": 0.405918,
+            "TC_JSRangeError_024@WebShortDrama1@B2": 0.569402,
+            "TC_JSError_012@HomeStay1.0.6@B3": 0.201402,
+            "TC_JSError_014@DriverLicenseExam1.0.7@B3": 0.308277,
+            "TC_JSError_015@FitnessCenter1.0.3@B3": 0.244653,
+            "TC_JSError_016@TouristAttraction1@B3": 0.328147,
+            "TC_JSError_017@OfficeAttendance1@B3": 0.183113,
+            "TC_JSError_019@Exam1@B3": 0.216025,
+            "TC_JSError_020@TeaDrinkOrders1@B3": 0.226641,
+            "TC_JSError_021@AudioEditing1@B3": 0.383442,
+            "TC_JSError_022@HouseholdService1@B3": 0.265911,
+            "TC_JSError_024@WebShortDrama1@B3": 0.579763
+          },
+          "total_seconds": 54.780572,
+          "llm_calls": 0,
+          "tokens": 0
+        }
+      }
+    },
+    "ground_truth_sha256": "c009872b741ee690972f09975248d3098d4620a83672622f50d329ceaf3a9099",
+    "label_reference_check": "passed; labels not changed; not proof of semantic or runtime correctness",
+    "did_run_harmonyos_validation": false,
+    "remaining_limitations": [
+      "rule candidates retain unverified assumptions",
+      "lexical scanner is not a full ArkTS AST; template expressions deliberately masked",
+      "Notes1 rule run explicitly UNRESOLVED; kept in denominator",
+      "input filtering is not an operating-system security boundary",
+      "no independent holdout evaluation or application repair verification"
+    ],
+    "integration_note": "A preliminary run while implementation was changing reported TeaDrinkOrders1 Windows publication error as BLOCKED and preserved denominator. Its implementation hash differs; it is not final acceptance evidence. Frozen final runs both have 0 blocked and 0 errors."
+  }
+}
