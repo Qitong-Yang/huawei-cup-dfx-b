@@ -40,8 +40,8 @@
 - 验收：精确位置命中率高于基线；每条规则有案例和单元测试
 
 ### Phase 5: LLM 接入 + 修复规格 + 补丁生成（P0）
-- [ ] 5.1 `llm/`：Kimi K3 客户端，记录 token、耗时、用途、`run_id`，保存完整请求/响应
-- [ ] 5.2 LLM 定位：只送检索片段，输出同 `LocateResult` 结构
+- [ ] 5.1 `llm/`：`claude -p` 后端（本地订阅）+ MCP 工具服务，记录 token、耗时、轮数、prompt hash，保存完整对话。实施计划：`docs/superpowers/plans/2026-10-22-llm-localization-claude-cli.md`（2026-10-22）；OpenAI 兼容后端（OpenRouter，提交版）后做
+- [ ] 5.2 LLM 定位 `rules+llm`：输出同 `LocateResult` 结构，引用核对不过退回规则答案（同上计划 Task 6–8）
 - [ ] 5.3 `spec/`：生成 `RepairSpec`（触发条件、正确行为、保持条件、验证方法）
 - [ ] 5.4 `repair/`：按 `RepairSpec` 生成候选 diff；行为审查（吞错误、删功能、无条件假结果 → 拒绝）
 - 验收：每个案例至少一个可应用补丁；`RepairSpec` 与补丁一同存档
@@ -82,7 +82,7 @@
 - 验证状态四值；完整成功 = V2 + V3 通过；V2/V3 在队友机器。
 - 失败按原因分流，重试前回滚，统一预算。
 - 评测用允许清单隔离；资源消耗计入所有失败调用。
-- LLM 用 Kimi K3，地址和模型名放配置。
+- LLM 用 Claude Opus 5.5（2026-10-22 改，先后取代 Kimi K3、Sonnet 5.5）：本地走订阅 `claude -p`，提交版走 OpenAI 兼容端点；模型名和地址放配置。见 spec 4.2、7.4。
 - 不做多 agent 分工、模型微调、完整跨文件数据流分析。
 
 ## Errors Encountered
