@@ -162,3 +162,18 @@ def test_record_and_stats(sandbox, tmp_path, monkeypatch):
     assert loc.stats == [{"case_id": "C@1", "adopted": True, "reason": "adopted",
                           "tokens": 12_000, "cache_read_tokens": 6000, "turns": 3,
                           "seconds": 1.0, "over_budget": False, "error": None}]
+
+
+class _Exploding(FakeBackend):
+    def run(self, request):
+        raise OSError("cleanup failed")
+
+
+def test_backend_exception_falls_back_to_rules(sandbox):
+    ctx, index = parse_crash_log(LOG), SourceIndex(sandbox / "app")
+    loc = LlmLocator(_Exploding())
+    r = loc("C1", ctx, index)
+    rule = locate_with_rules("C1", ctx, index)
+    assert r.primary == rule.primary and r.method == "rules+llm"
+    assert "llm fallback: no answer: OSError('cleanup failed')" in r.assumptions
+    assert loc.stats[0]["error"] == "OSError('cleanup failed')"

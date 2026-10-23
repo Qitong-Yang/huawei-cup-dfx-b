@@ -3,8 +3,13 @@
 The CLI runs the agent loop with built-in tools disabled; its only tools are ours, served by
 ``dfx_repair.llm.mcp_server``. This backend reads the ``stream-json`` events while the CLI
 runs. It tallies tokens per API message, writes ``{"turns", "tokens"}`` for the server's
-budget reminders, and stops the CLI once the case's token budget is used up. The first valid
-submit is read from the answer file the server writes, even when the CLI was stopped.
+budget reminders, and stops the CLI once the answer is submitted (the CLI would otherwise make
+one more call for a closing message) or once the case's token budget is used up. The first
+valid submit is read from the answer file the server writes.
+
+Linux/WSL only: on Windows the npm ``claude.cmd`` shim passes arguments through cmd.exe, which
+cuts multi-line prompts, and killing it does not stop node. The submitted pipeline uses an
+OpenAI-compatible backend instead (spec 7.4).
 """
 
 from __future__ import annotations
@@ -46,7 +51,7 @@ def build_command(request: SessionRequest, mcp_config: Path,
         "--setting-sources", "local",
         "--no-session-persistence",
         "--max-turns", str(cfg.max_turns),
-        "--output-format", "stream-json", "--verbose",
+        "--output-format", "stream-json", "--verbose", "--include-partial-messages",
     ]
 
 
@@ -68,18 +73,41 @@ def mcp_config(request: SessionRequest, workdir: Path) -> dict:
 
 
 class UsageTracker:
-    """Token use per API message; partial usage of one message is replaced, not added."""
+    """Token use per API message.
+
+    ``message_start`` opens a call with its input usage and ``message_delta`` carries the
+    call's final usage. ``assistant`` events only repeat the usage known when the message
+    started (output tokens near zero), so they never replace a ``message_delta`` value.
+    """
 
     def __init__(self) -> None:
         self._by_id: dict[str, dict] = {}
+        self._final: set[str] = set()
+        self.current: str | None = None
 
     def feed(self, event: dict) -> None:
-        message = event.get("message") or {}
-        mid = message.get("id")
+        kind = event.get("type")
+        if kind == "stream_event":
+            inner = event.get("event") or {}
+            if inner.get("type") == "message_start":
+                message = inner.get("message") or {}
+                self._set(message.get("id"), message.get("model"), message.get("usage"))
+            elif inner.get("type") == "message_delta" and self.current in self._by_id:
+                self._by_id[self.current]["usage"] = {**self._by_id[self.current]["usage"],
+                                                      **(inner.get("usage") or {})}
+                self._final.add(self.current)
+        elif kind == "assistant":
+            message = event.get("message") or {}
+            if message.get("id") not in self._final:
+                self._set(message.get("id"), message.get("model"), message.get("usage"))
+
+    def _set(self, mid: str | None, model: str | None, usage: dict | None) -> None:
         if not mid:
             return
-        usage = message.get("usage") or {}
-        self._by_id[mid] = {"id": mid, "model": message.get("model"), "usage": usage}
+        self.current = mid
+        old = self._by_id.get(mid, {})
+        self._by_id[mid] = {"id": mid, "model": model or old.get("model"),
+                            "usage": dict(usage or old.get("usage") or {})}
 
     @property
     def calls(self) -> list[dict]:
@@ -111,6 +139,7 @@ class _Attempt:
     tokens: int = 0
     cache_read_tokens: int = 0
     turns: int = 0
+    stopped: str | None = None  # why this backend stopped the CLI: "submitted" | "budget"
     calls: list[dict] = field(default_factory=list)
     transcript: list[dict] = field(default_factory=list)
     seconds: float = 0.0
@@ -132,6 +161,21 @@ def _write_state(path: Path, turns: int, tokens: int) -> None:
         os.replace(tmp, path)
     except OSError as exc:  # the server treats a missing state as zero; never fatal
         logger.warning("could not write state file: %s", exc)
+
+
+def _tool_results(event: dict) -> list[dict]:
+    content = (event.get("message") or {}).get("content")
+    if not isinstance(content, list):
+        return []
+    return [b for b in content if isinstance(b, dict) and b.get("type") == "tool_result"
+            and b.get("tool_use_id")]
+
+
+def _result_text(block: dict) -> str:
+    content = block.get("content")
+    if isinstance(content, list):
+        return "".join(c.get("text", "") for c in content if isinstance(c, dict)).strip()
+    return str(content or "").strip()
 
 
 def _init_problem(event: dict) -> str | None:
@@ -188,7 +232,7 @@ class ClaudeCliBackend:
         exe = shutil.which(self.executable)
         if exe is None:
             return _Attempt(error="claude CLI not found")
-        with tempfile.TemporaryDirectory(prefix="dfx-llm-") as tmp:
+        with tempfile.TemporaryDirectory(prefix="dfx-llm-", ignore_cleanup_errors=True) as tmp:
             workdir = Path(tmp)
             config_path = workdir / "mcp.json"
             config_path.write_text(json.dumps(mcp_config(request, workdir)), encoding="utf-8")
@@ -231,8 +275,10 @@ class ClaudeCliBackend:
                                   daemon=True)
         timer.start()
         reader.start()
-        stop_at_next_call = False  # set when the budget is crossed; spec 4.8 checks before a call
-        last_tokens = -1
+        pending: set[str] = set()  # tool calls of the latest message without a result yet
+        tool_names: dict[str, str] = {}
+        stop_when_idle = False  # stop once every pending tool call has its result
+        last_state: tuple[int, int] | None = None
         try:
             for line in proc.stdout:
                 event = _parse(line)
@@ -247,25 +293,41 @@ class ClaudeCliBackend:
                         out.error = problem
                         proc.kill()
                         break
-                elif kind == "assistant":
-                    mid = (event.get("message") or {}).get("id")
-                    if stop_at_next_call and mid not in {c["id"] for c in tracker.calls}:
-                        proc.kill()
-                        break
-                    tracker.feed(event)
-                    total = spent + tracker.tokens
-                    if total != last_tokens:
-                        last_tokens = total
-                        _write_state(workdir / "state.json", tracker.turns, total)
-                    if total >= cfg.warn_ratio * cfg.token_budget:
-                        out.warned = True
-                    if total >= cfg.token_budget:
-                        out.over_budget = stop_at_next_call = True
-                elif kind == "user" and stop_at_next_call:
-                    proc.kill()  # tools of the crossing call have run; no further call
-                    break
-                elif kind == "result":
+                    continue
+                if kind == "result":
                     result_event = event
+                    continue
+                if kind == "user":
+                    for block in _tool_results(event):
+                        pending.discard(block["tool_use_id"])
+                        if (tool_names.get(block["tool_use_id"]) == "mcp__dfx__submit"
+                                and _result_text(block) == "submitted"):
+                            out.stopped, stop_when_idle = "submitted", True
+                    if stop_when_idle and not pending:
+                        proc.kill()  # no further API call: answer given or budget used up
+                        break
+                    continue
+                if kind not in ("assistant", "stream_event"):
+                    continue
+                known = tracker.current
+                tracker.feed(event)
+                if stop_when_idle and tracker.current != known:
+                    proc.kill()  # a new call started; do not let it run
+                    break
+                if kind == "assistant":
+                    for block in (event.get("message") or {}).get("content") or []:
+                        if block.get("type") == "tool_use":
+                            pending.add(block["id"])
+                            tool_names[block["id"]] = block.get("name", "")
+                total = spent + tracker.tokens
+                if (tracker.turns, total) != last_state:
+                    last_state = (tracker.turns, total)
+                    _write_state(workdir / "state.json", tracker.turns, total)
+                if total >= cfg.warn_ratio * cfg.token_budget:
+                    out.warned = True
+                if total >= cfg.token_budget and not out.over_budget:
+                    out.over_budget = stop_when_idle = True
+                    out.stopped = out.stopped or "budget"
         finally:
             proc.wait()
             timer.cancel()
@@ -290,6 +352,8 @@ class ClaudeCliBackend:
                             permission_denials=result_event.get("permission_denials"))
         if out.error is not None:  # init problem: not transient
             return
+        if out.stopped and not timed_out:
+            return  # this backend stopped the CLI on purpose; the exit code means nothing
         if timed_out:
             out.error, out.retryable = f"timeout {timeout_s}s", True
         elif result_event is not None and result_event.get("is_error"):

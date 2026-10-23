@@ -137,6 +137,12 @@ def _adopted_result(rule: LocateResult, answer: dict, tools: AppTools,
                    evidence=evidence, assumptions=tuple(assumptions), status="CANDIDATE")
 
 
+def _failed_session(error: str) -> SessionResult:
+    return SessionResult(answer=None, error=error, over_budget=False, budget_warned=False,
+                         turns=0, tokens=0, cache_read_tokens=0, seconds=0.0, calls=(),
+                         transcript=(), meta={})
+
+
 def _slug(case_id: str) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "_", case_id)
 
@@ -159,8 +165,12 @@ class LlmLocator:
         cfg = self.config
         tools = AppTools(index.app_root, cfg.read_limit, cfg.search_limit)
         user_prompt = build_user_prompt(log_text, rule, tools, cfg)
-        session = self.backend.run(
-            SessionRequest(case_id, index.app_root, self.prompt, user_prompt, cfg))
+        request = SessionRequest(case_id, index.app_root, self.prompt, user_prompt, cfg)
+        try:
+            session = self.backend.run(request)
+        except Exception as exc:  # an LLM failure must leave the rule answer, not an ERROR case
+            logger.exception("%s: backend %s failed", case_id, self.backend.name)
+            session = _failed_session(repr(exc))
 
         answer = _normalize(session.answer) if session.answer is not None else None
         checks: dict[str, bool] = {}

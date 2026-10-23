@@ -45,6 +45,31 @@ def result(is_error: bool = False, text: str = "done", usage: dict | None = None
                 "cacheCreationInputTokens": 3000}}}
 
 
+def start(mid: str, in_: int = 0, cr: int = 0, cw: int = 0) -> dict:
+    return {"type": "stream_event", "event": {"type": "message_start", "message": {
+        "id": mid, "model": "claude-opus-5-5", "usage": {
+            "input_tokens": in_, "output_tokens": 1, "cache_read_input_tokens": cr,
+            "cache_creation_input_tokens": cw}}}}
+
+
+def delta(in_: int = 0, out: int = 0, cr: int = 0, cw: int = 0) -> dict:
+    return {"type": "stream_event", "event": {"type": "message_delta", "usage": {
+        "input_tokens": in_, "output_tokens": out, "cache_read_input_tokens": cr,
+        "cache_creation_input_tokens": cw}}}
+
+
+def tool_call(mid: str, *calls: tuple[str, str]) -> dict:
+    event = asst(mid, 1, 1)
+    event["message"]["content"] = [{"type": "tool_use", "id": tid, "name": f"mcp__dfx__{name}",
+                                    "input": {}} for tid, name in calls]
+    return event
+
+
+def tool_result(tid: str, text: str) -> dict:
+    return {"type": "user", "message": {"role": "user", "content": [
+        {"type": "tool_result", "tool_use_id": tid, "content": [{"type": "text", "text": text}]}]}}
+
+
 OK_EVENTS = [init(), asst("m1", 1000, 500, 5000, 1500), user(),
              asst("m2", 1000, 500, 7000, 1500), result()]
 
@@ -107,6 +132,44 @@ def test_tracker_dedupes_partial_usage():
     t.feed(asst("m2", in_=1, out=10, cr=200, cw=0))
     assert (t.turns, t.tokens, t.cache_read_tokens) == (2, 403, 300)
     assert [c["id"] for c in t.calls] == ["m1", "m2"]
+
+
+def test_tracker_takes_final_usage_from_message_delta():
+    t = UsageTracker()
+    t.feed(start("m1", in_=2, cr=100, cw=50))
+    t.feed(asst("m1", in_=2, out=4, cr=100, cw=50))
+    t.feed(delta(in_=2, out=900, cr=100, cw=50))
+    t.feed(asst("m1", in_=2, out=4, cr=100, cw=50))  # a late snapshot must not undo the delta
+    assert (t.turns, t.tokens, t.cache_read_tokens) == (1, 1052, 100)
+
+
+def test_command_requests_partial_messages(request_):
+    assert "--include-partial-messages" in build_command(request_, Path("m.json"))
+
+
+def test_stops_after_successful_submit(fake):
+    events = [init(), start("m1", 10, 100, 0), tool_call("m1", ("t1", "submit")),
+              delta(10, 90, 100, 0), {"__write_answer__": True}, tool_result("t1", "submitted"),
+              {"__sleep__": 5}, start("m2", 10, 200, 0), delta(10, 500, 200, 0), result()]
+    r = fake.run(events=events, answer=FULL_SUBMIT)
+    assert r.answer == FULL_SUBMIT and r.error is None and r.meta["attempts"] == 1
+    assert (r.turns, r.tokens) == (1, 200) and r.seconds < 4
+
+
+def test_invalid_submit_does_not_stop(fake):
+    events = [init(), start("m1", 10), tool_call("m1", ("t1", "submit")), delta(10, 90),
+              tool_result("t1", "error: missing fields: line"), start("m2", 10), delta(10, 40),
+              result(usage={})]
+    r = fake.run(events=events)
+    assert r.turns == 2 and r.error == "no submit"
+
+
+def test_crossing_call_runs_all_its_tools_before_stop(fake):
+    events = [init(), start("m1", 10), tool_call("m1", ("t1", "search"), ("t2", "submit")),
+              delta(600, 600), tool_result("t1", "hits"), {"__sleep__": 1.5},
+              {"__write_answer__": True}, tool_result("t2", "submitted"), {"__sleep__": 5}]
+    r = fake.run(events=events, answer=FULL_SUBMIT, budget=1000)
+    assert r.over_budget and r.answer == FULL_SUBMIT and r.seconds < 5
 
 
 def test_success_uses_result_model_usage(fake):
