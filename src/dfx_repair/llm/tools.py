@@ -67,16 +67,23 @@ class AppTools:
         self.read_limit = read_limit
         self.search_limit = search_limit
         self._cache: dict[Path, list[str]] = {}
-        self._searchable: list[tuple[str, list[str]]] = []
-        for dirpath, dirnames, filenames in os.walk(self.app_root):
-            dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS
-                                  and not (Path(dirpath) / d).is_symlink())
-            for name in sorted(filenames):
-                path = Path(dirpath) / name
-                if path.suffix in SEARCH_SUFFIXES and self._resolve_path(path) is not None:
-                    rel = path.relative_to(self.app_root).as_posix()
-                    self._searchable.append((rel, self._lines(path)))
-        self._searchable.sort()
+        self._searchable: list[tuple[str, list[str]]] | None = None
+
+    def _search_files(self) -> list[tuple[str, list[str]]]:
+        """All searchable files, read on the first search only (a scan is slow on /mnt)."""
+        if self._searchable is None:
+            found: list[tuple[str, list[str]]] = []
+            for dirpath, dirnames, filenames in os.walk(self.app_root):
+                dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS
+                                      and not (Path(dirpath) / d).is_symlink())
+                for name in filenames:
+                    path = Path(dirpath) / name
+                    resolved = self._resolve_path(path) if path.suffix in SEARCH_SUFFIXES else None
+                    if resolved is not None:
+                        rel = path.relative_to(self.app_root).as_posix()
+                        found.append((rel, self._lines(resolved)))
+            self._searchable = sorted(found)
+        return self._searchable
 
     def _resolve_path(self, path: Path) -> Path | None:
         """Real file inside the root, reached without symlinks and outside SKIP_DIRS."""
@@ -89,7 +96,8 @@ class AppTools:
             return None
         return resolved
 
-    def _file(self, rel: str) -> list[str] | None:
+    def file_lines(self, rel: str) -> list[str] | None:
+        """Lines of an app file, or None when it is missing or not visible to the model."""
         if not rel:
             return None
         path = self._resolve_path(self.app_root / rel)
@@ -101,7 +109,7 @@ class AppTools:
         return self._cache[path]
 
     def read_file(self, path: str, start_line: int, end_line: int) -> str:
-        lines = self._file(path)
+        lines = self.file_lines(path)
         if lines is None:
             return NO_SUCH_FILE
         end = min(end_line, start_line + self.read_limit - 1)
@@ -114,7 +122,7 @@ class AppTools:
             return f"error: bad regex {exc}"
         hits: list[str] = []
         total = 0
-        for rel, lines in self._searchable:
+        for rel, lines in self._search_files():
             if path_contains not in rel:
                 continue
             for n, text in enumerate(lines, 1):
@@ -129,7 +137,7 @@ class AppTools:
 
     def line_text(self, path: str, line: int) -> str | None:
         """Raw text of one line, or None when the file is not readable or the line is absent."""
-        lines = self._file(path)
+        lines = self.file_lines(path)
         if lines is None or not 1 <= line <= len(lines):
             return None
         return lines[line - 1]

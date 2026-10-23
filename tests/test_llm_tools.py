@@ -104,3 +104,24 @@ def test_schemas_are_mcp_shaped():
     assert names == ["read_file", "search", "submit"]
     assert all(s["inputSchema"]["type"] == "object" for s in TOOL_SCHEMAS)
     assert len(TOOL_SCHEMAS[2]["inputSchema"]["required"]) == 11
+
+
+def test_file_lines_is_confined_like_read_file(app):
+    t = AppTools(app)
+    assert t.file_lines("b/B.ets") == ["a", "b"]
+    assert t.file_lines("link/S.ets") is None and t.file_lines("testcases/x.json") is None
+
+
+def test_files_are_read_lazily_and_once(app, monkeypatch):
+    import dfx_repair.llm.tools as tools_mod
+
+    reads: list[Path] = []
+    real = tools_mod._read_lines
+    monkeypatch.setattr(tools_mod, "_read_lines", lambda p: reads.append(p) or real(p))
+    t = AppTools(app)
+    assert reads == []
+    t.search("needle")
+    first = len(reads)
+    t.search("hit")
+    t.read_file("a/A.ets", 1, 3)
+    assert first > 0 and len(reads) == first
