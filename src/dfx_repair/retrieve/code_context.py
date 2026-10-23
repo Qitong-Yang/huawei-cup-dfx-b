@@ -55,3 +55,27 @@ def enclosing_function(lines: list[str], line_no: int) -> FunctionSpan | None:
                 spans.append(FunctionSpan(match.group("name"), start + 1, close_line + 1))
                 break
     return min(spans, key=lambda s: (s.end_line - s.start_line, -s.start_line)) if spans else None
+
+
+def statement_span(lines: list[str], line: int) -> tuple[int, int]:
+    """1-based inclusive line range of the statement containing ``line``.
+
+    A statement continues while a ``(`` or ``[`` is still open, or while the next line starts
+    a method chain (``.then``). Braces open blocks, not statements, so they are not counted.
+    """
+    if not 1 <= line <= len(lines):
+        return line, line
+    masked = mask_non_code("\n".join(lines)).split("\n")
+    depth_before = [0, 0]  # depth_before[k] = open ( and [ at the start of line k (1-based)
+    depth = 0
+    for text in masked:
+        depth = max(0, depth + text.count("(") + text.count("[")
+                    - text.count(")") - text.count("]"))
+        depth_before.append(depth)
+    start = line
+    while start > 1 and (depth_before[start] > 0 or masked[start - 1].lstrip().startswith(".")):
+        start -= 1
+    end = line
+    while end < len(lines) and (depth_before[end + 1] > 0 or masked[end].lstrip().startswith(".")):
+        end += 1
+    return start, end

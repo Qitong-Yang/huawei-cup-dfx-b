@@ -1,6 +1,6 @@
 """Unit tests for dfx_repair.retrieve.code_context."""
 
-from dfx_repair.retrieve import enclosing_function
+from dfx_repair.retrieve import enclosing_function, statement_span
 
 SOURCE = """export class VM {
   private field: number = 0;
@@ -39,3 +39,20 @@ def test_field_outside_function_returns_class_or_none():
     span = enclosing_function(SOURCE, 2)
     # class headers are not function headers
     assert span is None
+
+
+def test_statement_span_call_arguments():
+    assert statement_span(["foo(a,", "  b,", "  c);"], 2) == (1, 3)
+
+
+def test_statement_span_method_chain():
+    assert statement_span(["x", "  .then(y)", "  .catch(z);"], 3) == (1, 3)
+
+
+def test_statement_span_single_line_and_parens_in_strings():
+    assert statement_span(["let s = '(';", "use(s);"], 2) == (2, 2)
+
+
+def test_statement_span_does_not_cross_block_braces():
+    lines = ["build() {", "  Column() {", "    Text(this.items[", "      0].name)", "  }", "}"]
+    assert statement_span(lines, 4) == (3, 4)
