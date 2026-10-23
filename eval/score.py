@@ -170,7 +170,24 @@ def render_markdown(summary: dict, title: str) -> str:
     for c in summary["cases"]:
         mark = ["✓" if c["hits"][lvl] else "✗" for lvl in LEVELS]
         lines.append(f"| {c['case_id']} | `{c['predicted']}` | " + " | ".join(mark) + " |")
+    if summary.get("llm"):
+        lines += _llm_section(summary)
     return "\n".join(lines) + "\n"
+
+
+def _llm_section(summary: dict) -> list[str]:
+    llm = summary["llm"]
+    totals = (f"tokens {summary['tokens']}，缓存读占比 {100 * llm['cache_read_ratio']:.1f}%，"
+              f"平均耗时 {llm['mean_seconds']} s/案例，prompt {llm['prompt_version']} "
+              f"({llm['prompt_sha256'][:12]})")
+    lines = ["", "## LLM 用量", "", totals, "",
+             "| 案例 | 采纳 | 原因 | 轮数 | tokens | 缓存读 | 耗时 s |",
+             "|---|---|---|---|---|---|---|"]
+    for s in llm["cases"]:
+        reason = str(s["reason"]).replace("|", "/").replace("\n", " ")
+        lines.append(f"| {s['case_id']} | {'✓' if s['adopted'] else '✗'} | {reason} | "
+                     f"{s['turns']} | {s['tokens']} | {s['cache_read_tokens']} | {s['seconds']} |")
+    return lines
 
 
 def load_ground_truth(path: Path = DEFAULT_GROUND_TRUTH) -> dict:

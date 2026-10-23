@@ -208,3 +208,59 @@ def test_managed_snapshot_records_and_passes_complete_source_digest(tmp_path, mo
     assert passed_hashes == [row["source_digest"]]
     pred = json.loads((run_dir / "predictions.json").read_text(encoding="utf-8"))[0]
     assert pred["source_hash"] == row["source_digest"]
+
+
+def _llm_setup(tmp_path, monkeypatch, backend):
+    app = _app(tmp_path)
+    log = tmp_path / "crash.log"  # sandbox layout: crash.log next to app/
+    log.write_text("Error name:TypeError\nStacktrace:\n at root (Root.ets:2:3)\n", encoding="utf-8")
+    cases = [{"case_id": name} for name in ["one", "two"]]
+    cases_path, gt_path = tmp_path / "cases.json", tmp_path / "gt.json"
+    cases_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+    gt_path.write_text(json.dumps({"entries": [_gt(c["case_id"]) for c in cases]}),
+                       encoding="utf-8")
+    monkeypatch.setattr(run_baseline, "build_sandbox", lambda *a, **k: SimpleNamespace(
+        app_dir=app, log_path=log, source_hash="snapshot", log_hash="log", policy_hash="p"))
+    monkeypatch.setattr(run_baseline, "make_llm_backend", lambda: backend)
+    return {"data_root": tmp_path, "cases_path": cases_path, "ground_truth_path": gt_path,
+            "sandbox_root": tmp_path / "boxes", "runs_root": tmp_path / "runs"}
+
+
+ROOT_ANSWER = {"hypothesis": "crash_line", "file": "Root.ets", "line": 2,
+               "quoted_line": "return 1;", "evidence_file": "Root.ets", "evidence_line": 1,
+               "evidence_quote": "function root() {", "origin_file": "Root.ets",
+               "origin_line": 2, "origin_quote": "return 1;", "reasoning": "r"}
+
+
+def test_rules_llm_run_records_usage_and_prompt_hash(tmp_path, monkeypatch):
+    from tests.llm_fakes import FAKE_TOKENS, FakeBackend
+
+    kwargs = _llm_setup(tmp_path, monkeypatch, FakeBackend(answer=ROOT_ANSWER))
+    summary, run_dir = run_baseline.run_evaluation(**kwargs, method="rules+llm")
+    assert summary["tokens"] == 2 * FAKE_TOKENS and summary["llm_calls"] == 6
+    assert summary["llm"]["cases"][0]["adopted"] is True
+    assert summary["llm"]["cache_read_ratio"] == 0.5 and summary["llm"]["mean_seconds"] == 1.0
+    cfg = json.loads((run_dir / "config.json").read_text(encoding="utf-8"))
+    assert cfg["llm"]["prompt_sha256"].startswith("12e09676") and cfg["llm"]["backend"] == "fake"
+    assert cfg["llm"]["model"] == "claude-opus-5-5" and cfg["llm"]["prompt_version"] == "v4"
+    report = (run_dir / "report.md").read_text(encoding="utf-8")
+    assert "## LLM 用量" in report and "| one | ✓ | adopted |" in report
+    assert sorted(p.name for p in (run_dir / "llm").iterdir()) == ["one.json", "two.json"]
+    assert summary["rates"]["exact"] == {"hits": 2, "total": 2}
+
+
+def test_rules_llm_backend_failure_is_not_an_error_case(tmp_path, monkeypatch):
+    from tests.llm_fakes import FakeBackend
+
+    kwargs = _llm_setup(tmp_path, monkeypatch, FakeBackend(error="timeout 900s"))
+    summary, _ = run_baseline.run_evaluation(**kwargs, method="rules+llm")
+    assert summary["coverage"]["error"] == 0 and summary["coverage"]["candidate"] == 2
+    assert summary["llm"]["cases"][0]["reason"] == "no answer: timeout 900s"
+
+
+def test_other_methods_have_no_llm_section(tmp_path, monkeypatch):
+    kwargs = _llm_setup(tmp_path, monkeypatch, None)
+    summary, run_dir = run_baseline.run_evaluation(**kwargs, method="rules")
+    assert "llm" not in summary and summary["tokens"] == 0
+    assert "LLM 用量" not in (run_dir / "report.md").read_text(encoding="utf-8")
+    assert "llm" not in json.loads((run_dir / "config.json").read_text(encoding="utf-8"))
