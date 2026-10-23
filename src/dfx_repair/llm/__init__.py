@@ -1,3 +1,19 @@
-"""llm stage of the dfx_repair pipeline."""
+"""llm stage of the dfx_repair pipeline: LLM-assisted root-cause localization."""
 
-__all__: list[str] = []
+from .session import (
+    PROMPT_VERSION,
+    Backend,
+    LlmConfig,
+    SessionRequest,
+    SessionResult,
+    load_prompt,
+)
+
+__all__ = [
+    "PROMPT_VERSION",
+    "Backend",
+    "LlmConfig",
+    "SessionRequest",
+    "SessionResult",
+    "load_prompt",
+]
