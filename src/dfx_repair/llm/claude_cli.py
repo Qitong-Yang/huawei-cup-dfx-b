@@ -77,13 +77,19 @@ class UsageTracker:
 
     ``message_start`` opens a call with its input usage and ``message_delta`` carries the
     call's final usage. ``assistant`` events only repeat the usage known when the message
-    started (output tokens near zero), so they never replace a ``message_delta`` value.
+    started (output tokens near zero); they are used only for messages seen without stream
+    events.
     """
 
     def __init__(self) -> None:
         self._by_id: dict[str, dict] = {}
+        self._streamed: set[str] = set()
         self._final: set[str] = set()
         self.current: str | None = None
+
+    def is_final(self, mid: str | None) -> bool:
+        """True once a streamed message has its final usage (messages without stream: always)."""
+        return mid is None or mid not in self._streamed or mid in self._final
 
     def feed(self, event: dict) -> None:
         kind = event.get("type")
@@ -92,13 +98,15 @@ class UsageTracker:
             if inner.get("type") == "message_start":
                 message = inner.get("message") or {}
                 self._set(message.get("id"), message.get("model"), message.get("usage"))
+                if message.get("id"):
+                    self._streamed.add(message["id"])
             elif inner.get("type") == "message_delta" and self.current in self._by_id:
                 self._by_id[self.current]["usage"] = {**self._by_id[self.current]["usage"],
                                                       **(inner.get("usage") or {})}
                 self._final.add(self.current)
         elif kind == "assistant":
             message = event.get("message") or {}
-            if message.get("id") not in self._final:
+            if message.get("id") not in self._streamed:
                 self._set(message.get("id"), message.get("model"), message.get("usage"))
 
     def _set(self, mid: str | None, model: str | None, usage: dict | None) -> None:
@@ -161,6 +169,16 @@ def _write_state(path: Path, turns: int, tokens: int) -> None:
         os.replace(tmp, path)
     except OSError as exc:  # the server treats a missing state as zero; never fatal
         logger.warning("could not write state file: %s", exc)
+
+
+def _tool_uses(event: dict) -> list[dict]:
+    if event.get("type") != "assistant":
+        return []
+    content = (event.get("message") or {}).get("content")
+    if not isinstance(content, list):
+        return []
+    return [b for b in content if isinstance(b, dict) and b.get("type") == "tool_use"
+            and b.get("id")]
 
 
 def _tool_results(event: dict) -> list[dict]:
@@ -303,22 +321,25 @@ class ClaudeCliBackend:
                         if (tool_names.get(block["tool_use_id"]) == "mcp__dfx__submit"
                                 and _result_text(block) == "submitted"):
                             out.stopped, stop_when_idle = "submitted", True
-                    if stop_when_idle and not pending:
-                        proc.kill()  # no further API call: answer given or budget used up
+                elif kind in ("assistant", "stream_event"):
+                    known = tracker.current
+                    tracker.feed(event)
+                    if stop_when_idle and tracker.current != known:
+                        proc.kill()  # a new call started; do not let it run
                         break
+                    for block in _tool_uses(event):
+                        pending.add(block["id"])
+                        tool_names[block["id"]] = block.get("name", "")
+                else:
                     continue
-                if kind not in ("assistant", "stream_event"):
-                    continue
-                known = tracker.current
-                tracker.feed(event)
-                if stop_when_idle and tracker.current != known:
-                    proc.kill()  # a new call started; do not let it run
+                # Stop once the answer is in (or the budget is used up), every tool call of the
+                # last message has its result, and that message's final usage has arrived.
+                # The CLI may run a tool before the message's final usage event.
+                if stop_when_idle and not pending and tracker.is_final(tracker.current):
+                    proc.kill()
                     break
-                if kind == "assistant":
-                    for block in (event.get("message") or {}).get("content") or []:
-                        if block.get("type") == "tool_use":
-                            pending.add(block["id"])
-                            tool_names[block["id"]] = block.get("name", "")
+                if kind == "user":
+                    continue
                 total = spent + tracker.tokens
                 if (tracker.turns, total) != last_state:
                     last_state = (tracker.turns, total)

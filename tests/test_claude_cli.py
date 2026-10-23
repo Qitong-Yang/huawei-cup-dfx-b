@@ -233,3 +233,21 @@ def test_missing_cli(request_):
 def test_timeout_retries_then_fails(fake):
     r = fake.run(events=[init()], sleep=5, timeout_s=1)
     assert r.error == "timeout 1s" and r.meta["attempts"] == 2 and r.seconds < 8
+
+
+def test_stop_waits_for_the_final_usage_of_the_submit_call(fake):
+    # Seen live: the CLI runs the tool before the call's message_delta arrives.
+    events = [init(), start("m1", 10, 100, 0), tool_call("m1", ("t1", "submit")),
+              {"__write_answer__": True}, tool_result("t1", "submitted"), {"__sleep__": 0.5},
+              delta(10, 700, 100, 0), {"__sleep__": 5}]
+    r = fake.run(events=events, answer=FULL_SUBMIT)
+    assert r.tokens == 810 and r.seconds < 4 and r.error is None
+
+
+def test_budget_crossed_before_tool_use_event_still_runs_that_tool(fake):
+    # No stream events: the crossing is seen on one assistant event, the submit on the next.
+    events = [init(), asst("m1", 600, 600), tool_call("m1", ("t1", "submit")),
+              {"__sleep__": 1}, {"__write_answer__": True}, tool_result("t1", "submitted"),
+              {"__sleep__": 5}]
+    r = fake.run(events=events, answer=FULL_SUBMIT, budget=1000)
+    assert r.over_budget and r.answer == FULL_SUBMIT and r.seconds < 5
