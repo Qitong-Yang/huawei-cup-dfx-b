@@ -163,6 +163,6 @@ spike 观察（V4-Pro，160k）：5 个案例触发 80% 提示，其中 3 个随
 ## 7. 待确认
 
 1. 越过 token 上限的那次调用中已提交的答案：保留（按 4.6 核对，标记 `over_budget`）还是丢弃并退回规则。V4-Pro spike 中这样的答案 2 个，都答对；丢弃则该运行从 23/25 降到 21/25。
-2. Opus 5.5 + 冻结 v4 prompt + 4.4 工具（计划 Task 8）在 25 个案例上的一次完整运行（正式数字）。
+2. Opus 5.5 + 冻结 v4 prompt + 4.4 工具（计划 Task 8）在 25 个案例上的一次完整运行（正式数字）。〔已完成，2026-10-23〕run `rules+llm_20261023_125333_196639_8334ad2b`（代码 `a6894f7`，在 Linux 文件系统副本 `~/hw` 上跑，避开 `/mnt/f` 读写开销）：exact 24/25、range 25/25、function 24/25、file 25/25；25 例全部采纳 LLM 答案，无回退、无超预算；合计 719,442 token（缓存读占 72.4%），82 次调用，LLM 平均 22.3 s/案例，墙钟 562 s。唯一未中仍是 ComprehensiveMall1（答 117 行，标注 119 行，见第 5 节）。对照：规则 21/25、23/25；Sonnet v3 spike 22/25、23/25；Opus spike（内置工具）24/25、25/25、832k token。
 3. 〔已不适用，2026-10-22 模型改为 Sonnet〕已改走官方 API：`MOONSHOT_BASE_URL=https://api.moonshot.cn/v1`（2026-10-22）。原 key 是 Kimi Code 订阅 key，官方端点返回 401，已换成开放平台 key。该账号 `/models` 只列出 `kimi-k2.6`、`kimi-k2.7-code`；`kimi-k3` 返回 “Not found the model or Permission denied”；组织限流 RPM 3。K3 的 spike 结论不能直接套用到 K2.x，用哪个模型待用户决定；`temp/spike_llm.py` 已加 `LLM_RPM` 全局限速和 429 退避。
 4. 后端与模型决定冲突：上面"后端"一条只做 OpenAI 兼容 `/chat/completions`，不做 `anthropic` SDK 与 `claude -p`；而 Sonnet 的 spike 都走 `claude -p`（内置 Read/Grep/Glob，不是 4.4 的自定义工具）。〔用户决定，2026-10-22〕本地开发用 Claude 订阅；提交版走 OpenRouter（OpenAI 兼容，模型 `anthropic/claude-opus-5.5`，支持 tools），与"后端"一条一致；不提交 key。测试报告的正式数字可在本地用订阅跑出，条件是本地链路与提交版用同一 system prompt 与同一组 4.4 工具：`claude -p --tools "" --strict-mcp-config --mcp-config <本地 MCP server，暴露 read_file/search/submit>`（CLI 2.1.309 已确认支持这些参数），报告注明调用方式。现有 `temp/spike_claude.py` 用内置 Read/Grep/Glob，不满足此条件。

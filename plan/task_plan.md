@@ -40,8 +40,8 @@
 - 验收：精确位置命中率高于基线；每条规则有案例和单元测试
 
 ### Phase 5: LLM 接入 + 修复规格 + 补丁生成（P0）
-- [ ] 5.1 `llm/`：`claude -p` 后端（本地订阅）+ MCP 工具服务，记录 token、耗时、轮数、prompt hash，保存完整对话。实施计划：`docs/superpowers/plans/2026-10-22-llm-localization-claude-cli.md`（2026-10-22）；OpenAI 兼容后端（OpenRouter，提交版）后做
-- [ ] 5.2 LLM 定位 `rules+llm`：输出同 `LocateResult` 结构，引用核对不过退回规则答案（同上计划 Task 6–8）
+- [x] 5.1 `llm/`：`claude -p` 后端（本地订阅）+ MCP 工具服务，记录 token、耗时、轮数、prompt hash，保存完整对话。实施计划：`docs/superpowers/plans/2026-10-22-llm-localization-claude-cli.md`（2026-10-22）；OpenAI 兼容后端（OpenRouter，提交版）后做
+- [x] 5.2 LLM 定位 `rules+llm`：输出同 `LocateResult` 结构，引用核对不过退回规则答案（同上计划 Task 6–8）
 - [ ] 5.3 `spec/`：生成 `RepairSpec`（触发条件、正确行为、保持条件、验证方法）
 - [ ] 5.4 `repair/`：按 `RepairSpec` 生成候选 diff；行为审查（吞错误、删功能、无条件假结果 → 拒绝）
 - 验收：每个案例至少一个可应用补丁；`RepairSpec` 与补丁一同存档
@@ -96,3 +96,4 @@
 **Phase 4 进行中**（2026-10-19）。规则定位 `eval/runs/rules_20261019_062946/`：exact 21/25（基线 18）、range 23/25、function 23/25、file 24/25；0 次 LLM 调用。
 已实现：行号对齐（align）、R-BOUNDS-PARTIAL、R-BOUNDS-LOOP；其余 22 个案例规则均未触发（无误报）。
 剩余 4 个精确未命中都需要跨文件追数据（HomeStay1、ComprehensiveNews1 003、Exam1、Notes1）→ 计划用"规则缩小范围 + LLM 判定"（Phase 5，需要 Kimi API key）。
+**2026-10-23**：`rules+llm`（Opus 5.5 + 冻结 v4 + MCP 工具，`claude -p` 订阅）正式运行 `eval/runs/rules+llm_20261023_125333_196639_8334ad2b/`：exact 24/25、range 25/25、function 24/25、file 25/25；719k token，LLM 平均 22.3 s/案例。分支 `feat/llm-locate`。下一步：修复阶段（Phase 5.3–6）设计。
