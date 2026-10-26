@@ -1,81 +1,88 @@
-# DFX 故障定位与自修复研究项目
+# DFX 应用崩溃根因定位
 
-当前为 Phase 4 规则定位阶段，已于 2026-10-21 完成本轮缺陷修复与回归验收。已实现日志到候选代码位置的分析和离线评测；LLM、修复规格、补丁、编排、设备验证仍为占位模块。
+## 队伍信息
 
-## 已有能力与目录
+| 项目 | 内容 |
+|------|------|
+| 队伍名称 | 天天向上队 |
+| 队长 | 杨启桐 |
+| 队员 | 刘思源，乔义杰 |
+| 项目名称 | DFX 应用崩溃根因定位（华为杯 DFX 竞赛 B 题） |
+| 一句话描述 | 从鸿蒙 ArkTS 崩溃日志出发，用"规则候选 + LLM 跨文件追因 + 确定性引用核对"定位错误代码行 |
 
-- `src/dfx_repair/`：日志解析、文件映射、粗略函数识别、栈顶定位、行号对齐和两条越界规则。
-- `eval/`：案例盘点、标签引用检查、诊断副本和定位评分。
-- `resources/`：本地 `cases.json`、人工 `ground_truth.json`，答案不能交给诊断端。
-- `tests/`：原有测试及新增审查反例。
-- `docs/`、`skill/`、`sessions/`：交付文档、后续 Skill、真实开发记录。
-- `.venv/`：本机 Python 环境，不提交。
+## 完成情况
 
-规划与设计记录见 `plan/`，本轮审查前后摘要见 [核验结果](docs/phase4-review-results.json)。
+| 赛题环节 | 状态 |
+|---|---|
+| 日志分析 | 已实现：`.log`/`.zip`、UTF-8/UTF-16、路径归一、栈帧映射 |
+| 错误代码行定位 | 已实现：栈顶基线、规则层、规则 + LLM |
+| 修复方案生成 | **未实现**（`src/dfx_repair/{spec,repair}/` 为占位） |
+| 运行验证 | **未实现**（`src/dfx_repair/{verify,orchestrator}/` 为占位） |
 
-## 本地运行
+官方 `data_B` 中 25 个可评分案例（另有 2 例因数据问题排除）的定位结果：
 
-在仓库根目录执行。默认路径以项目位置计算，数据默认在 `data-master/data_B`；文件读写已明确指定 UTF-8，`-X utf8` 仅作为终端输出选项保留。
+| 方法 | exact | range | file | token |
+|---|---|---|---|---|
+| 栈顶基线 | 18/25 | 21/25 | 24/25 | 0 |
+| 规则 | 21/25 | 23/25 | 23/25 | 0 |
+| 规则 + LLM（Claude Opus 5.5） | **24/25** | **25/25** | **25/25** | 719k（平均 28.8k、22.3 s/案例） |
 
-Linux / WSL（uv）：
+这 25 个案例同时用于修改 prompt 和评测，没有独立留出集，数字偏乐观。详见 [测试报告](docs/test-report.md)。
+
+## 目录
+
+```
+.
+├── README.md
+├── docs/
+│   ├── technical-design.md     # 技术设计
+│   ├── test-report.md          # 测试报告
+│   └── superpowers/            # LLM 定位阶段的设计与实施计划
+├── src/dfx_repair/             # 源码：ingest / retrieve / locate / llm（spec 等为占位）
+├── skill/dfx-fault-repair/     # Skill：SKILL.md、单案例定位脚本、规则库参考
+├── eval/                       # 案例盘点、标准答案、沙箱、评分、批量评测
+├── tests/                      # 174 项单元与回归测试
+├── resources/                  # cases.json、ground_truth.json
+├── sessions/                   # AI 辅助开发记录
+└── plan/                       # 任务计划、框架设计、标准答案复核
+```
+
+数据目录 `data-master/`、评测产物 `eval/sandbox/` 与 `eval/runs/`、`.env`、`.venv/` 不入库。
+
+## 快速开始
+
+需要 Python 3.10+ 与 [uv](https://docs.astral.sh/uv/)；比赛数据放在 `data-master/data_B`。`rules+llm` 另需已登录的 Claude Code CLI（`claude`）。
 
 ```bash
+# 安装依赖
 uv sync --locked --group dev
-uv run python -m eval.inventory                      # 按本地数据重建 resources/cases.json
+
+# 测试与静态检查
 uv run pytest -q
 uv run ruff check src eval tests
+
+# 按本地数据重建案例索引
+uv run python -m eval.inventory
+
+# 批量定位评测（结果写入 eval/runs/<run_id>/）
 uv run python -X utf8 -m eval.run_baseline --method stack_top
 uv run python -X utf8 -m eval.run_baseline --method rules
+uv run python -X utf8 -m eval.run_baseline --method rules+llm
+
+# 单个案例定位（案例目录含 app/ 与 crash.log）
+uv run python skill/dfx-fault-repair/scripts/locate_case.py \
+    --case-dir eval/sandbox/TC_JSError_001_ComprehensiveTool1_B1 --method rules
 ```
 
-Windows（PowerShell）：
+Windows PowerShell：先设 `$env:PYTHONPATH = 'src'`，再用 `./.venv/Scripts/python.exe` 代替 `uv run python`。
 
-```powershell
-$env:PYTHONPATH = 'src'
-
-# 当前 .venv 已建立，安装了 pytest 9.1.1 和 ruff 0.17.1。
-# 重建时选择 Python 3.10+：python -m venv .venv
-# 然后 ./.venv/Scripts/python.exe -m pip install pytest ruff
-# 有 uv 时可使用 uv sync --locked --group dev。
-
-# 其他机器的 ZIP 成员路径可能不同，先按本地数据重建索引
-./.venv/Scripts/python.exe -X utf8 -m eval.inventory --data-root data-master/data_B
-
-# 测试临时文件留在项目内
-New-Item -ItemType Directory -Force .pytest-work | Out-Null
-./.venv/Scripts/python.exe -m pytest -q -p no:cacheprovider --basetemp .pytest-work/manual
-./.venv/Scripts/python.exe -m ruff check src eval tests
-
-# 离线定位评测
-./.venv/Scripts/python.exe -X utf8 -m eval.run_baseline --data-root data-master/data_B --method stack_top
-./.venv/Scripts/python.exe -X utf8 -m eval.run_baseline --data-root data-master/data_B --method rules
-```
-
-首次建副本可能较慢。WSL 下若仓库位于 `/mnt/` 盘，副本读写约慢 7 倍（实测单次评测约 64 分钟对 9 分钟），建议用 `--sandbox-root` 与 `--runs-root` 指向 Linux 文件系统目录（如 `~/dfx-eval/sandbox`）。缓存现在核对输入源码、原始／清洗日志、清洗策略和副本实际内容，变更后自动失效。仅替换可验证归属的受管目录；未知目录、路径逃逸、链接、冲突或可信答案标记会明确拒绝，不会默默继续。
-
-标签引用检查现在支持本地默认路径及显式参数：
-
-```powershell
-./.venv/Scripts/python.exe -m eval.build_ground_truth --check-only
-# 可选 --data-root、--cases、--out
-```
-
-库存与评测默认均使用 data-master/data_B；评测可用 --cases、--ground-truth、--sandbox-root、--runs-root 配置路径。显式相对路径相对于调用者工作目录。
+WSL 下仓库位于 `/mnt/` 盘时，沙箱读写约慢 7 倍；可用 `--sandbox-root` 与 `--runs-root` 指向 Linux 文件系统目录（如 `~/dfx-eval/sandbox`）。评测可用 `--data-root`、`--cases`、`--ground-truth` 指定路径。
 
 ## 如何解读结果
 
-`eval/runs/<run_id>/` 保存配置、预测、逐案状态、评分与报告。本次前后摘要在 [核验结果](docs/phase4-review-results.json)，运行目录可再生，不入库。运行 ID 中时间为 UTC，带微秒和随机后缀。
+`eval/runs/<run_id>/` 中保存 `config.json`（输入、实现与 prompt 的 SHA-256）、`predictions.json`、`case_outcomes.json`、`score.json`、`report.md`，以及 `llm/<case>.json`（完整对话与工具调用）。
 
-- **108 项测试通过，0 失败、0 跳过、0 XFAIL；Ruff 通过。**原先 9 个反例均已转为正常回归。
-- 人工标签精确命中：栈顶 18/25，规则 21/25；两版均处理 25/25 案例、0 BLOCKED、0 ERROR。
-- function 辅助指标已修正为两版 22/25，不再从相关范围直接继承。它仍包含无函数位置的既定近邻回退，具体定义见 score.py。
-- 规则版 24 个 CANDIDATE、1 个 UNRESOLVED；Notes1 的模板内表达式未被当前词法助手支持，因此保守不报根因。该案例仍计入分母，规则版 file 因此为 23/25。
-- CANDIDATE 是有依据的假设，不是已证实根因；assumptions 与 context_requests 记录待补证据。
-- UNRESOLVED 时，同名文件或歧义对齐行放在 `unresolved_candidates`，供后续 LLM 步骤核查；该字段不参与评分。
-- 资料污染或不可准备记 BLOCKED，执行异常记 ERROR，不能唯一定位记 UNRESOLVED；都保留主分母。BLOCKED／ERROR 批次保存报告后以非零退出码结束。
-- 结果绑定完整源码、日志、配置与实现摘要。输入副本过滤不是操作系统安全边界。
-- 成绩来自当前人工标签开发集，不是修复成功率或未见案例泛化准确率；当前仍未接入模型、应用补丁和鸿蒙运行验证。
-
-## 后续交付
-
-队伍信息、正式技术设计、Skill、应用运行／回归报告和开发记录仍需补齐。源数据、凭证、环境和临时诊断副本不进入提交代码。
+- `CANDIDATE` 是有依据的假设，不是已证实根因；`assumptions` 记录待验证前提。
+- `UNRESOLVED`（无法唯一定位）、`BLOCKED`（资料污染或不可准备）、`ERROR`（执行异常）都保留在分母中。
+- LLM 答案必须通过确定性引用核对，否则退回规则答案，`assumptions` 中记 `llm fallback: <原因>`。核对只能防编造，不能证明答案正确。
+- 沙箱按允许清单复制源码与日志，测试脚本和标准答案不进入；它过滤输入，不是操作系统级隔离。

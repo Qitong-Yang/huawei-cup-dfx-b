@@ -59,10 +59,10 @@
 - 验收：完整成功 = V2 PASS 且 V3 PASS；阻塞案例单列
 
 ### Phase 8: Skill + 文档交付（P1）
-- [ ] 8.1 `skill/dfx-fault-repair/`：SKILL.md、scripts、references（规则库、修复模板、消息归一化表）
-- [ ] 8.2 `docs/technical-design.md`、`docs/test-report.md`
-- [ ] 8.3 `sessions/` 开发对话记录
-- [ ] 8.4 `README.md` 队伍信息与运行说明
+- [x] 8.1 `skill/dfx-fault-repair/`：SKILL.md、scripts、references（只含定位：规则库、输出结构；修复模板与消息归一化表未做）
+- [x] 8.2 `docs/technical-design.md`、`docs/test-report.md`
+- [x] 8.3 `sessions/` 开发对话记录
+- [x] 8.4 `README.md` 队伍信息与运行说明
 
 ### Phase 9: 增强（P2）
 - [ ] 故障变异 OOD 测试集
@@ -97,3 +97,4 @@
 已实现：行号对齐（align）、R-BOUNDS-PARTIAL、R-BOUNDS-LOOP；其余 22 个案例规则均未触发（无误报）。
 剩余 4 个精确未命中都需要跨文件追数据（HomeStay1、ComprehensiveNews1 003、Exam1、Notes1）→ 计划用"规则缩小范围 + LLM 判定"（Phase 5，需要 Kimi API key）。
 **2026-10-23**：`rules+llm`（Opus 5.5 + 冻结 v4 + MCP 工具，`claude -p` 订阅）正式运行 `eval/runs/rules+llm_20261023_125333_196639_8334ad2b/`：exact 24/25、range 25/25、function 24/25、file 25/25；719k token，LLM 平均 22.3 s/案例。分支 `feat/llm-locate`。下一步：修复阶段（Phase 5.3–6）设计。
+**2026-10-26**：放弃修复阶段（Phase 5.3–7 未实现），按模板完成提交材料：技术设计、测试报告、Skill（定位部分）、sessions、README。分支 `docs/submission`。

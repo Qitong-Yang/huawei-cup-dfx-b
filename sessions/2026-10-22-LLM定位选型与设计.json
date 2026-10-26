@@ -1,0 +1,73 @@
+{
+  "session_id": "2026-10-22-llm-localization-design",
+  "date": "2026-10-22",
+  "developer": "杨启桐",
+  "ai_tool": "Claude Code",
+  "model": "claude-opus-5-5",
+  "objective": "用一次性 spike 比较模型与 prompt，确定 LLM 定位阶段的模型、工具、预算与采纳规则，写出设计和实施计划。",
+  "context": "规则层 exact 21/25，剩余未命中都要跨文件追数据。Phase 4 已由队友审查并合入（dc77f6f）。",
+  "conversation": [
+    {
+      "turn": 1,
+      "role": "user",
+      "content": "用 LLM 在沙箱里读代码追因，先试几个模型，prompt 不能针对具体案例。",
+      "files_referenced": ["temp/spike_llm.py", "temp/spike_claude.py"]
+    },
+    {
+      "turn": 1,
+      "role": "assistant",
+      "content": "写一次性 spike（temp/），工具为 read_file/search/submit，答案须附原文引用。Kimi + v1 22/25；v2 加入通用纪律（注释不可信、搜索不区分大小写）后 23/25，4 个关键案例各重复 3 次，TeaDrinkOrders1 在 783/785 间摇摆。",
+      "code_generated": true,
+      "files_modified": ["temp/spike_llm.py", "temp/spike_llm_v1.py", "temp/spike_llm_v2.py", "temp/repeat_summary.py"]
+    },
+    {
+      "turn": 2,
+      "role": "user",
+      "content": "比较 Sonnet、DeepSeek、Kimi K3 和 Opus 的准确率与资源消耗。",
+      "files_referenced": []
+    },
+    {
+      "turn": 2,
+      "role": "assistant",
+      "content": "冻结 v4 prompt 后对比：Sonnet v3 22/25（463 s）；DeepSeek-Flash 22/25 但 6.65M token，且 6 次尝试读沙箱外数据；DeepSeek-V4-Pro 160k 上限下 23/25（含退回）；Kimi K3 跑完 13 例后中止。Opus 在 Sonnet 答错的 3 例上全对，25 例 spike exact 24/25、range 25/25、832k token。",
+      "code_generated": true,
+      "files_modified": ["temp/spike_llm_v3.py"]
+    },
+    {
+      "turn": 3,
+      "role": "user",
+      "content": "模型用 Opus 5.5，本地走订阅 claude -p，但必须用和提交版相同的 prompt 和工具。写设计和计划。",
+      "files_referenced": []
+    },
+    {
+      "turn": 3,
+      "role": "assistant",
+      "content": "设计定稿：claude -p 关闭内置工具，只通过 stdio MCP 暴露 read_file/search/submit；每案例 14 轮、160k token；确定性引用核对决定采纳，失败退回规则答案；prompt 冻结并记录 SHA-256，不得按 25 个案例反复调整。",
+      "code_generated": false,
+      "files_modified": ["docs/superpowers/specs/2026-10-22-llm-localization-design.md", "docs/superpowers/plans/2026-10-22-llm-localization-claude-cli.md"]
+    }
+  ],
+  "outcome": {
+    "goal_achieved": true,
+    "summary": "确定 Opus 5.5 + 冻结 v4 prompt + MCP 工具 + 引用核对的方案，形成设计与 8 个任务的实施计划。",
+    "files_created": ["docs/superpowers/specs/2026-10-22-llm-localization-design.md", "docs/superpowers/plans/2026-10-22-llm-localization-claude-cli.md"],
+    "files_modified": ["plan/task_plan.md"],
+    "issues_found": [
+      "引用核对能防编造，不能分辨对错",
+      "守卫行与使用行的标注两边都有（Mall1 认 119，ComprehensiveTool1 认 78），没有固定策略能两边都对",
+      "spike 每次搜索遍历 /mnt/f 上的文件，单次最长 37.5 s，需改为内存搜索",
+      "Kimi 官方端点只开放 k2.x，K3 无权限，RPM 3"
+    ],
+    "code_quality_notes": "spike 脚本是一次性代码，留在 temp/，不进入 src。"
+  },
+  "ai_evaluation": {
+    "helpfulness": "高",
+    "code_accuracy": "中",
+    "areas_ai_did_well": "用重复运行暴露结果波动；把模型越权读数据的行为转成路径限制测试要求",
+    "areas_ai_did_poorly": "早期 spike 用了内置 Read/Grep，与提交版工具不一致，需返工",
+    "human_modifications": "人工决定模型（Kimi K3 → Sonnet 5.5 → Opus 5.5）与本地/提交版后端分工"
+  },
+  "next_steps": ["按计划实现 llm/ 与 locate/llm.py", "冻结 prompt 跑一次 25 案例正式评测"],
+  "duration_minutes": null,
+  "tags": ["design", "llm", "localization"]
+}
