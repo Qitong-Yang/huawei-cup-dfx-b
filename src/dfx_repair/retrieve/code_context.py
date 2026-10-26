@@ -1,0 +1,81 @@
+"""Light-weight source structure helpers using position-preserving lexical masking.
+
+Function boundaries remain approximate (including ArkUI layout blocks), but braces
+in literals/comments cannot accidentally close a function. Unsupported headers yield
+no span instead of a fabricated function boundary.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+
+from .lexical import mask_non_code, matching_braces
+
+_HEADER_RE = re.compile(
+    r"^\s*(?:export\s+)?(?:(?:public|private|protected|static|async|override|get|set)\s+)*"
+    r"(?:function\s+)?(?P<name>[A-Za-z_$][\w$]*)\s*(?:=\s*(?:async\s*)?)?"
+    r"\(.*\)\s*(?::\s*[^={]+)?(?:=>\s*)?\{\s*$"
+)
+_KEYWORDS = frozenset({"if", "for", "while", "switch", "catch", "else", "return", "do", "try"})
+_MAX_HEADER_LINES = 6
+
+
+@dataclass(frozen=True)
+class FunctionSpan:
+    name: str
+    start_line: int
+    end_line: int
+
+
+def enclosing_function(lines: list[str], line_no: int) -> FunctionSpan | None:
+    """Return the innermost recognized function/block covering a valid source line."""
+    if not 1 <= line_no <= len(lines):
+        return None
+    code = mask_non_code("\n".join(lines))
+    clean_lines = code.split("\n")
+    pairs = matching_braces(code)
+    spans: list[FunctionSpan] = []
+    for opening, closing in pairs.items():
+        open_line = code.count("\n", 0, opening)
+        close_line = code.count("\n", 0, closing)
+        if not open_line <= line_no - 1 <= close_line:
+            continue
+        start_of_line = code.rfind("\n", 0, opening) + 1
+        prefix = code[start_of_line:opening + 1]
+        for k in range(_MAX_HEADER_LINES):
+            start = open_line - k
+            if start < 0:
+                break
+            if start < open_line and any(ch in clean_lines[start] for ch in "{};"):
+                break
+            header = " ".join([*clean_lines[start:open_line], prefix])
+            match = _HEADER_RE.fullmatch(header)
+            if match and match.group("name") not in _KEYWORDS:
+                spans.append(FunctionSpan(match.group("name"), start + 1, close_line + 1))
+                break
+    return min(spans, key=lambda s: (s.end_line - s.start_line, -s.start_line)) if spans else None
+
+
+def statement_span(lines: list[str], line: int) -> tuple[int, int]:
+    """1-based inclusive line range of the statement containing ``line``.
+
+    A statement continues while a ``(`` or ``[`` is still open, or while the next line starts
+    a method chain (``.then``). Braces open blocks, not statements, so they are not counted.
+    """
+    if not 1 <= line <= len(lines):
+        return line, line
+    masked = mask_non_code("\n".join(lines)).split("\n")
+    depth_before = [0, 0]  # depth_before[k] = open ( and [ at the start of line k (1-based)
+    depth = 0
+    for text in masked:
+        depth = max(0, depth + text.count("(") + text.count("[")
+                    - text.count(")") - text.count("]"))
+        depth_before.append(depth)
+    start = line
+    while start > 1 and (depth_before[start] > 0 or masked[start - 1].lstrip().startswith(".")):
+        start -= 1
+    end = line
+    while end < len(lines) and (depth_before[end + 1] > 0 or masked[end].lstrip().startswith(".")):
+        end += 1
+    return start, end

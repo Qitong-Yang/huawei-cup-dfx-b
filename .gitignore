@@ -3,3 +3,21 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# secrets
+.env
+
+# python env / caches
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# evaluation artifacts (regenerable)
+eval/sandbox/
+eval/runs/
+.coverage
+
+# 本地审查与测试缓存
+.pytest-work/
+**/.pytest-work/
+.ruff_cache/

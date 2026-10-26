@@ -1,0 +1,73 @@
+{
+  "session_id": "2026-10-19-rule-layer",
+  "date": "2026-10-19",
+  "developer": "杨启桐",
+  "ai_tool": "Claude Code",
+  "model": "claude-opus-5-5",
+  "objective": "搭建工程骨架、日志解析、案例盘点与标准答案，建立隔离评测与栈顶基线，再加规则层提升精确定位。",
+  "context": "Phase 0 已完成读题、模板与数据盘点，并手工走通 ComprehensiveTool1（崩溃行 83，根因 78）。本次进入 Phase 1–4。",
+  "conversation": [
+    {
+      "turn": 1,
+      "role": "user",
+      "content": "按计划开工：搭骨架，盘点全部案例，从测试脚本和注入报告提取标准答案并逐条核对。",
+      "files_referenced": ["plan/task_plan.md", "plan/framework-design.md", "data-master/data_B"]
+    },
+    {
+      "turn": 1,
+      "role": "assistant",
+      "content": "按模板建立 src/ eval/ resources/ tests/；实现 ingest/crash_log.py（BOM 检测、ZIP 成员读取、路径归一）和 eval/inventory.py，盘点出 27 个案例。标准答案按位置集合存储，列出 5 条存疑项待人工复核；ImageProcessing1 018 的 ZIP 内没有日志，ComprehensiveNews1 002 源码与日志不符，两例排除。",
+      "code_generated": true,
+      "files_modified": ["src/dfx_repair/ingest/crash_log.py", "eval/inventory.py", "eval/build_ground_truth.py", "resources/cases.json", "resources/ground_truth.json"]
+    },
+    {
+      "turn": 2,
+      "role": "user",
+      "content": "复核 5 条存疑答案（gt_review.md 中逐条给出结论），然后做评测沙箱、打分器和栈顶基线。",
+      "files_referenced": ["plan/gt_review.md"]
+    },
+    {
+      "turn": 2,
+      "role": "assistant",
+      "content": "按复核结论更新答案（例如 EnterpriseRecruitment2 加入 PropUtil.js:3，Express1 加入 346 行），写定判定原则：属于注入改动且只改这一行即可消除崩溃。sandbox.py 按允许清单复制源码与日志，测试脚本与答案不进入副本；score.py 计算 exact/range/function/file，BLOCKED/ERROR 保留在分母。栈顶基线 exact 18/25。",
+      "code_generated": true,
+      "files_modified": ["eval/sandbox.py", "eval/score.py", "eval/run_baseline.py", "src/dfx_repair/locate/stack_top.py"]
+    },
+    {
+      "turn": 3,
+      "role": "user",
+      "content": "加规则层，规则只出候选，不要为某个案例写特判。",
+      "files_referenced": ["src/dfx_repair/locate/"]
+    },
+    {
+      "turn": 3,
+      "role": "assistant",
+      "content": "新增行号对齐（±8 行内唯一匹配错误消息对应的表达式）、R-BOUNDS-PARTIAL（不完整的边界检查）、R-BOUNDS-LOOP（DataView 读取的 <= 循环）。规则输出带 assumptions 的 CANDIDATE。exact 18 → 21/25，其余 22 个案例规则未触发，无误报。",
+      "code_generated": true,
+      "files_modified": ["src/dfx_repair/locate/rules/align.py", "src/dfx_repair/locate/rules/bounds.py", "src/dfx_repair/locate/rules/base.py", "tests/test_rules.py"]
+    }
+  ],
+  "outcome": {
+    "goal_achieved": true,
+    "summary": "完成日志解析、案例盘点、人工标准答案、隔离评测、栈顶基线（18/25）与规则层（21/25）。",
+    "files_created": ["src/dfx_repair/ingest/", "src/dfx_repair/retrieve/", "src/dfx_repair/locate/", "eval/", "resources/cases.json", "resources/ground_truth.json"],
+    "files_modified": ["plan/task_plan.md", "plan/notes.md"],
+    "issues_found": [
+      "环境无 unzip，改用 Python zipfile",
+      "B3 ZIP 路径混用反斜杠；UTF-16 日志初版解析为空，已加 BOM 检测",
+      "剩余 4 个精确未命中（HomeStay1、ComprehensiveNews1 003、Exam1、Notes1）都需要跨文件追数据，规则做不到"
+    ],
+    "code_quality_notes": "mypy 发现栈顶定位器 assumptions 元组缺类型标注，已补（0f080f9）。"
+  },
+  "ai_evaluation": {
+    "helpfulness": "高",
+    "code_accuracy": "中",
+    "areas_ai_did_well": "数据盘点与边界情况（编码、ZIP 路径）处理完整；评测口径公开分母",
+    "areas_ai_did_poorly": "初版测试期望写错（后缀匹配段数），文本替换曾误把字段插入 B3 生成器",
+    "human_modifications": "人工复核 5 条存疑标准答案并给出最终结论"
+  },
+  "next_steps": ["队友审查规则层与评测隔离", "跨文件追因交给 LLM"],
+  "commits": ["62e8703", "a24e080", "0f080f9", "1db4ce2"],
+  "duration_minutes": null,
+  "tags": ["feature", "localization", "evaluation"]
+}

@@ -1,0 +1,791 @@
+{
+  "case_count": 27,
+  "scorable_count": 25,
+  "entries": [
+    {
+      "case_id": "TC_JSError_002@AccountingApp1@B1",
+      "crash": {
+        "file": "components/bill_chart/src/main/ets/components/BillBarChart.ets",
+        "line": 228
+      },
+      "accepted_lines": [
+        {
+          "file": "components/bill_chart/src/main/ets/components/BillBarChart.ets",
+          "line": 228
+        },
+        {
+          "file": "components/bill_chart/src/main/ets/components/BillBarChart.ets",
+          "line": 48
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/bill_chart/src/main/ets/components/BillBarChart.ets",
+          "start_line": 227,
+          "end_line": 229,
+          "role": "faulty_call"
+        },
+        {
+          "file": "components/bill_chart/src/main/ets/components/BillBarChart.ets",
+          "start_line": 48,
+          "end_line": 48,
+          "role": "data_source"
+        }
+      ],
+      "basis": [
+        "test-script annotation",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "Field _formatterBuilder holds the class itself; calling it without new throws. Line 184 constructs the same class correctly with new, so line 48 is injected; fixing it alone also removes the crash (accepted_lines policy)."
+    },
+    {
+      "case_id": "TC_JSError_004@BookRead2@B1",
+      "crash": {
+        "file": "feature/book_home/src/main/ets/views/BookViewListPage.ets",
+        "line": 21
+      },
+      "accepted_lines": [
+        {
+          "file": "feature/book_home/src/main/ets/views/BookViewListPage.ets",
+          "line": 21
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "feature/book_home/src/main/ets/views/BookViewListPage.ets",
+          "start_line": 21,
+          "end_line": 22,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script description"
+      ],
+      "certainty": "high",
+      "notes": "books!.load() runs before books is constructed on the next line."
+    },
+    {
+      "case_id": "TC_JSError_007@Calendar1@B1",
+      "crash": {
+        "file": "components/date_calculation/src/main/ets/utils/Utils.ets",
+        "line": 55
+      },
+      "accepted_lines": [
+        {
+          "file": "components/date_calculation/src/main/ets/utils/Utils.ets",
+          "line": 55
+        },
+        {
+          "file": "components/date_calculation/src/main/ets/utils/Utils.ets",
+          "line": 53
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/date_calculation/src/main/ets/utils/Utils.ets",
+          "start_line": 51,
+          "end_line": 55,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script description"
+      ],
+      "certainty": "high",
+      "notes": "days is created as BigInt (53) and passed to Math.floor (55)."
+    },
+    {
+      "case_id": "TC_JSError_001@ComprehensiveTool1@B1",
+      "crash": {
+        "file": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets",
+        "line": 83
+      },
+      "accepted_lines": [
+        {
+          "file": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets",
+          "line": 78
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/money_track/src/main/ets/viewmodels/ResourceManageVM.ets",
+          "start_line": 78,
+          "end_line": 80,
+          "role": "missing_check"
+        }
+      ],
+      "basis": [
+        "test-script annotation"
+      ],
+      "certainty": "high",
+      "notes": "Bounds check covers index1 only; drop on the extra 'add' grid cell gives index2 == length."
+    },
+    {
+      "case_id": "TC_JSError_009@EnterpriseRecruitment2@B1",
+      "crash": {
+        "file": "commons/component/src/main/ets/utils/PropUtil.js",
+        "line": 3
+      },
+      "accepted_lines": [
+        {
+          "file": "product/phone/src/main/ets/pages/jobRoute/JobDelivery.ets",
+          "line": 186
+        },
+        {
+          "file": "commons/component/src/main/ets/utils/PropUtil.js",
+          "line": 3
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "product/phone/src/main/ets/pages/jobRoute/JobDelivery.ets",
+          "start_line": 183,
+          "end_line": 186,
+          "role": "faulty_call"
+        },
+        {
+          "file": "commons/component/src/main/ets/utils/PropUtil.js",
+          "start_line": 2,
+          "end_line": 4,
+          "role": "crash_site"
+        }
+      ],
+      "basis": [
+        "test-script description",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "find() returns undefined before the resume is submitted; hasKey uses 'in' on it. hasKey's only caller is line 186, so PropUtil.js is part of the injection and a null guard there alone also fixes the crash. Reviewed 2026-10-19."
+    },
+    {
+      "case_id": "TC_JSError_010@Express1@B1",
+      "crash": {
+        "file": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets",
+        "line": 354
+      },
+      "accepted_lines": [
+        {
+          "file": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets",
+          "line": 346
+        },
+        {
+          "file": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets",
+          "line": 354
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets",
+          "start_line": 345,
+          "end_line": 346,
+          "role": "faulty_condition"
+        },
+        {
+          "file": "features/business_home/src/main/ets/viewModels/ExpressPageVM.ets",
+          "start_line": 349,
+          "end_line": 354,
+          "role": "crash_site"
+        }
+      ],
+      "basis": [
+        "test-script description",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "'DAILY_PICKUP ||' lets the default template (pickupTime '') into the parser; ''.split(' - ') has one part, so timeParts[1] is out of bounds. Confirmed by the test script's fault chain. Reviewed with the user 2026-10-19."
+    },
+    {
+      "case_id": "TC_JSError_005@MoneyTrack1_2@B1",
+      "crash": {
+        "file": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets",
+        "line": 114
+      },
+      "accepted_lines": [
+        {
+          "file": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets",
+          "line": 114
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/assets/src/main/ets/viewmodels/AssetAnalysisVM.ets",
+          "start_line": 109,
+          "end_line": 115,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script annotation",
+        "sibling-version diff"
+      ],
+      "certainty": "high",
+      "notes": "Log reports line 110 but the statement is at 114 in the shipped source (offset +4)."
+    },
+    {
+      "case_id": "TC_JSError_025@Music1@B1",
+      "crash": {
+        "file": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets",
+        "line": 190
+      },
+      "accepted_lines": [
+        {
+          "file": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets",
+          "line": 190
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/module_musicplay/src/main/ets/components/PlayerControlArea.ets",
+          "start_line": 187,
+          "end_line": 192,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script description"
+      ],
+      "certainty": "high",
+      "notes": "remainMs == 0 at the slider end -> log10(Infinity) -> repeat(Infinity)."
+    },
+    {
+      "case_id": "TC_JSError_006@Notes1@B1",
+      "crash": {
+        "file": "common/datasource/src/main/ets/NoteService.ets",
+        "line": 287
+      },
+      "accepted_lines": [
+        {
+          "file": "common/datasource/src/main/ets/NoteService.ets",
+          "line": 197
+        },
+        {
+          "file": "common/datasource/src/main/ets/NoteService.ets",
+          "line": 237
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "common/datasource/src/main/ets/NoteService.ets",
+          "start_line": 195,
+          "end_line": 198,
+          "role": "data_source"
+        },
+        {
+          "file": "common/datasource/src/main/ets/NoteService.ets",
+          "start_line": 235,
+          "end_line": 238,
+          "role": "data_source"
+        },
+        {
+          "file": "components/richeditor/src/main/ets/model/Note.ets",
+          "start_line": 57,
+          "end_line": 60,
+          "role": "data_source"
+        }
+      ],
+      "basis": [
+        "test-script description",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "note.noteService = this creates a cycle; JSON.stringify(notes) at 287 then throws. Test-script trigger (new note -> save) goes through addNote (197); edits go through updateNote (237). The noteService field has no other consumer. Line 287 is the template's own debug log, so it is not accepted. Reviewed 2026-10-19."
+    },
+    {
+      "case_id": "TC_JSError_026@Teleprompter1@B1",
+      "crash": {
+        "file": "components/teleprompter/src/main/ets/components/ConfigSheet.ets",
+        "line": 232
+      },
+      "accepted_lines": [
+        {
+          "file": "components/teleprompter/src/main/ets/components/ConfigSheet.ets",
+          "line": 232
+        },
+        {
+          "file": "components/teleprompter/src/main/ets/components/ConfigSheet.ets",
+          "line": 231
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/teleprompter/src/main/ets/components/ConfigSheet.ets",
+          "start_line": 230,
+          "end_line": 232,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "toFixed(level) with level > 100."
+    },
+    {
+      "case_id": "TC_JSError_011@ChildrenEducation1@B2",
+      "crash": {
+        "file": "commons/utils/src/main/ets/player/VideoPlayPage.ets",
+        "line": 72
+      },
+      "accepted_lines": [
+        {
+          "file": "commons/utils/src/main/ets/player/VideoPlayPage.ets",
+          "line": 72
+        },
+        {
+          "file": "commons/utils/src/main/ets/player/VideoPlayPage.ets",
+          "line": 71
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "commons/utils/src/main/ets/player/VideoPlayPage.ets",
+          "start_line": 70,
+          "end_line": 75,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "log Root cause section"
+      ],
+      "certainty": "high",
+      "notes": "Class called without new via an ESObject alias. The log itself states the answer."
+    },
+    {
+      "case_id": "TC_JSError_001@ComprehensiveMall1@B2",
+      "crash": {
+        "file": "features/order/src/main/ets/views/OrderInfoPage.ets",
+        "line": 119
+      },
+      "accepted_lines": [
+        {
+          "file": "features/order/src/main/ets/views/OrderInfoPage.ets",
+          "line": 119
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/order/src/main/ets/views/OrderInfoPage.ets",
+          "start_line": 117,
+          "end_line": 119,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script annotation"
+      ],
+      "certainty": "high",
+      "notes": "Guard checks orderItem?.logisticInfo but the body dereferences vm.logisticInfo!."
+    },
+    {
+      "case_id": "TC_JSError_002@ComprehensiveNews1@B2",
+      "excluded": "fault not present in shipped source: HistoryVM.toDeleteList is never null and the logged line 48 is '} else {'. The log in this case's own folder belongs to TC_JSError_003.",
+      "basis": [
+        "manual analysis"
+      ],
+      "certainty": "n/a"
+    },
+    {
+      "case_id": "TC_JSError_003@ComprehensiveNews1@B2",
+      "crash": {
+        "file": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets",
+        "line": 111
+      },
+      "accepted_lines": [
+        {
+          "file": "commons/lib_news_api/src/main/ets/httpsmock/mockdata/MockArticle.ets",
+          "line": 50
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "commons/lib_news_api/src/main/ets/httpsmock/mockdata/MockArticle.ets",
+          "start_line": 50,
+          "end_line": 50,
+          "role": "data_source"
+        },
+        {
+          "file": "commons/lib_news_feed_details/src/main/ets/views/ArticleFeedDetails.ets",
+          "start_line": 111,
+          "end_line": 111,
+          "role": "crash_site"
+        }
+      ],
+      "basis": [
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "article_2 has authorId 'Author_2' but the author mock uses 'author_2' (case mismatch), so queryAuthorInfo returns undefined and author is never set. It is the only article whose authorId matches no author. Line 111 is not accepted: unguarded author access is common in the template, and adding ?. there would hide the wrong author. The case's test script describes a different app. Reviewed 2026-10-19."
+    },
+    {
+      "case_id": "TC_JSError_005@MoneyTrack1@B2",
+      "crash": {
+        "file": "features/statistics/src/main/ets/components/CalendarSummary.ets",
+        "line": 55
+      },
+      "accepted_lines": [
+        {
+          "file": "features/statistics/src/main/ets/components/CalendarSummary.ets",
+          "line": 54
+        },
+        {
+          "file": "features/statistics/src/main/ets/components/CalendarSummary.ets",
+          "line": 55
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/statistics/src/main/ets/components/CalendarSummary.ets",
+          "start_line": 53,
+          "end_line": 56,
+          "role": "root_cause"
+        },
+        {
+          "file": "features/statistics/src/main/ets/components/CalendarSummary.ets",
+          "start_line": 1,
+          "end_line": 1,
+          "role": "related"
+        }
+      ],
+      "basis": [
+        "sibling-version diff"
+      ],
+      "certainty": "high",
+      "notes": "find(...)! returns undefined for a date with no bill; baseline passes dateStr through."
+    },
+    {
+      "case_id": "TC_JSRangeError_024@WebShortDrama1@B2",
+      "crash": {
+        "file": "components/aggregated_share/src/main/ets/views/ShareView.ets",
+        "line": 40
+      },
+      "accepted_lines": [
+        {
+          "file": "components/aggregated_share/src/main/ets/views/ShareView.ets",
+          "line": 40
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/aggregated_share/src/main/ets/views/ShareView.ets",
+          "start_line": 37,
+          "end_line": 45,
+          "role": "root_cause"
+        },
+        {
+          "file": "components/aggregated_share/src/main/ets/views/ShareView.ets",
+          "start_line": 100,
+          "end_line": 103,
+          "role": "related"
+        }
+      ],
+      "basis": [
+        "test-script annotation",
+        "sibling-version diff"
+      ],
+      "certainty": "high",
+      "notes": "META says 40, docstring says 39 (stale); current source has the Uint32Array at 40."
+    },
+    {
+      "case_id": "TC_JSError_012@HomeStay1.0.6@B3",
+      "crash": {
+        "file": "components/travel_discovery/src/main/ets/model/Index.ets",
+        "line": 65
+      },
+      "accepted_lines": [
+        {
+          "file": "components/travel_discovery/src/main/ets/utils/MockData.ets",
+          "line": 11
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/travel_discovery/src/main/ets/utils/MockData.ets",
+          "start_line": 11,
+          "end_line": 11,
+          "role": "data_source"
+        },
+        {
+          "file": "components/travel_discovery/src/main/ets/pages/PageWaterFlow.ets",
+          "start_line": 26,
+          "end_line": 32,
+          "role": "related"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "images changed from array to string in mock data; JSON.parse at 65 then fails."
+    },
+    {
+      "case_id": "TC_JSError_014@DriverLicenseExam1.0.7@B3",
+      "crash": {
+        "file": "commons/datasource/src/main/ets/ExamService.ets",
+        "line": 345
+      },
+      "accepted_lines": [
+        {
+          "file": "commons/datasource/src/main/ets/ExamService.ets",
+          "line": 345
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "commons/datasource/src/main/ets/ExamService.ets",
+          "start_line": 343,
+          "end_line": 346,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "User search text used as a regex source without escaping."
+    },
+    {
+      "case_id": "TC_JSError_015@FitnessCenter1.0.3@B3",
+      "crash": {
+        "file": "components/search/src/main/ets/views/ResultPage.ets",
+        "line": 163
+      },
+      "accepted_lines": [
+        {
+          "file": "components/search/src/main/ets/views/ResultPage.ets",
+          "line": 163
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/search/src/main/ets/views/ResultPage.ets",
+          "start_line": 162,
+          "end_line": 168,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "Malformed named group (?<matched) in a template regex."
+    },
+    {
+      "case_id": "TC_JSError_016@TouristAttraction1@B3",
+      "crash": {
+        "file": "components/module_base/src/main/ets/util/CommonUtil.ets",
+        "line": 10
+      },
+      "accepted_lines": [
+        {
+          "file": "components/module_base/src/main/ets/util/CommonUtil.ets",
+          "line": 10
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/module_base/src/main/ets/util/CommonUtil.ets",
+          "start_line": 10,
+          "end_line": 10,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "Phone regex '(?3|...)' is invalid. Report labels this case TC_JSError_018 (swapped)."
+    },
+    {
+      "case_id": "TC_JSError_017@OfficeAttendance1@B3",
+      "crash": {
+        "file": "scenes/agency/src/main/ets/mock/DataManager.ets",
+        "line": 56
+      },
+      "accepted_lines": [
+        {
+          "file": "scenes/agency/src/main/ets/mock/DataManager.ets",
+          "line": 56
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "scenes/agency/src/main/ets/mock/DataManager.ets",
+          "start_line": 53,
+          "end_line": 61,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "Hard-coded unclosed '(' in new RegExp('(' + keyword)."
+    },
+    {
+      "case_id": "TC_JSError_018@ImageProcessing1@B3",
+      "excluded": "no crash log: the archive contains MainEntry.ets instead of a jscrash log.",
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "n/a",
+      "notes": "Report locates the fault at product/phone/src/main/ets/pages/MainEntry.ets:45-46."
+    },
+    {
+      "case_id": "TC_JSError_019@Exam1@B3",
+      "crash": {
+        "file": "components/select_category/src/main/ets/components/MainPage.ets",
+        "line": 65
+      },
+      "accepted_lines": [
+        {
+          "file": "features/homePage/src/main/ets/model/TopicModel.ets",
+          "line": 40
+        },
+        {
+          "file": "components/select_category/src/main/ets/components/MainPage.ets",
+          "line": 75
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/homePage/src/main/ets/model/TopicModel.ets",
+          "start_line": 35,
+          "end_line": 40,
+          "role": "data_source"
+        },
+        {
+          "file": "components/select_category/src/main/ets/components/MainPage.ets",
+          "start_line": 52,
+          "end_line": 77,
+          "role": "missing_check"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "Last subject's nextId points back to the first; recursion has no visited set."
+    },
+    {
+      "case_id": "TC_JSError_020@TeaDrinkOrders1@B3",
+      "crash": {
+        "file": "features/order/src/main/ets/pages/ConfirmOrderPage.ets",
+        "line": 786
+      },
+      "accepted_lines": [
+        {
+          "file": "features/order/src/main/ets/pages/ConfirmOrderPage.ets",
+          "line": 785
+        },
+        {
+          "file": "features/order/src/main/ets/pages/ConfirmOrderPage.ets",
+          "line": 786
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "features/order/src/main/ets/pages/ConfirmOrderPage.ets",
+          "start_line": 783,
+          "end_line": 786,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "test-script description",
+        "manual analysis"
+      ],
+      "certainty": "high",
+      "notes": "Picker options are [无需餐具, 需要餐具依据餐量, 1份, 2份, ...]; index-1 is right for index >= 2 but the default index 0 (无需餐具, kept by the test script) gives -1 -> new Array(-1). Fixing 785 (handle 0) or 786 (clamp) alone removes the crash. Reviewed 2026-10-19."
+    },
+    {
+      "case_id": "TC_JSError_021@AudioEditing1@B3",
+      "crash": {
+        "file": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets",
+        "line": 58
+      },
+      "accepted_lines": [
+        {
+          "file": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets",
+          "line": 52
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/audio_common/src/main/ets/viewModel/EditViewModel.ets",
+          "start_line": 52,
+          "end_line": 52,
+          "role": "off_by_one"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "Loop condition <= totalFrames reads past the buffer end."
+    },
+    {
+      "case_id": "TC_JSError_022@HouseholdService1@B3",
+      "crash": {
+        "file": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets",
+        "line": 23
+      },
+      "accepted_lines": [
+        {
+          "file": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets",
+          "line": 22
+        },
+        {
+          "file": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets",
+          "line": 23
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "commons/lib_foundation/src/main/ets/http/OrderRequestChecksum.ets",
+          "start_line": 21,
+          "end_line": 23,
+          "role": "root_cause"
+        }
+      ],
+      "basis": [
+        "B3 injection report/spec"
+      ],
+      "certainty": "high",
+      "notes": "ArrayBuffer sized in characters, Uint16Array needs 2 bytes per element."
+    },
+    {
+      "case_id": "TC_JSError_024@WebShortDrama1@B3",
+      "crash": {
+        "file": "components/feedback/src/main/ets/utils/FileUtils.ets",
+        "line": 173
+      },
+      "accepted_lines": [
+        {
+          "file": "components/feedback/src/main/ets/utils/FileUtils.ets",
+          "line": 173
+        }
+      ],
+      "root_cause_locations": [
+        {
+          "file": "components/feedback/src/main/ets/utils/FileUtils.ets",
+          "start_line": 153,
+          "end_line": 189,
+          "role": "root_cause"
+        },
+        {
+          "file": "components/feedback/src/main/ets/pages/FeedbackHistoryPage.ets",
+          "start_line": 23,
+          "end_line": 23,
+          "role": "related"
+        }
+      ],
+      "basis": [
+        "sibling-version diff"
+      ],
+      "certainty": "high",
+      "notes": "Int32Array over a buffer whose size is not a multiple of 4."
+    }
+  ]
+}

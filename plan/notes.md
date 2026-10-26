@@ -52,3 +52,49 @@
   - https://www.datacamp.com/tutorial/kimi-k3-tutorial
   - https://enter.converge.ai/page/en-US/blog/kimi-k3-api-guide
   - https://dev.to/bri_whitmore_88/moonshot-api-complete-guide-from-kimi-k2-to-k3-and-beyond-57bm
+
+## 8. Phase 1 盘点结论（2026-10-19，`eval/inventory.py` → `resources/cases.json`）
+- 共 27 个案例，键为 `TC编号@应用@数据集`（TC 编号在不同应用间重复，不能单独作键）。
+- 26 个有日志；主日志按"栈顶映射唯一 > 标准 HiviewDFX 格式 > bundle 匹配 > 最新"选择，全部 `UNIQUE` 映射到源码。
+- 日志格式问题（已在 `ingest/crash_log.py` 处理）：
+  - `TC_JSError_017` 的日志为 UTF-16（带 BOM）；
+  - AccountingApp1 用 `Process name` 代替 `Module name`；
+  - Express1/MoneyTrack1_2 的合成日志使用设备路径 `file:///data/storage/el1/bundle/...`；
+  - 文件名 `jscrash-com.kuaishou.hmapp-...log` 被复用在 7 个应用里，内容各不相同，**不能按文件名识别日志**；
+  - 部分合成日志行号与源码不一致（Express1 合成日志 352 vs 真实 354；MoneyTrack1_2 日志 110 vs 源码 114）。
+- **第 4 个泄题源**：ChildrenEducation1 的日志自带 `Root cause:` / `Fix:` 段 → 沙箱必须用 `strip_leaky_sections` 清洗。
+- `DFXBenchMark_TC` 的同编号脚本可能属于其他应用（`TC_JSError_003.py` 描述的是 income_calculator）；ComprehensiveNews1 自己的 `TC_JSError_003.py` 也描述了别的应用。备用脚本改为按 bundle 名过滤。
+
+## 9. 标准答案（`eval/build_ground_truth.py` → `resources/ground_truth.json`）
+- 27 条，25 条可评分，2 条排除：
+  - `TC_JSError_002@ComprehensiveNews1`：故障不在提供的源码中（`toDeleteList` 从未为 null，日志行 48 是 `} else {`）；
+  - `TC_JSError_018@ImageProcessing1`：ZIP 内没有日志。
+- 每条含 `crash`、`accepted_lines`（算精确命中的行，可多个）、`root_cause_locations`（范围，算"范围命中"）、`basis`、`certainty`。
+- 依据分布：测试脚本标注、脚本描述、B3 注入报告/设计文档（已对照当前源码复核，报告中 016/018 编号对调）、兄弟版本 diff（MoneyTrack1 vs MoneyTrack1_2、WebShortDrama1 B2 vs B3）、日志 Root cause 段、人工分析。
+- `certainty`：复核后 25 条全部为 high（复核过程见 `plan/gt_review.md`）。ComprehensiveNews1 003 的根因找到：`MockArticle.ets:50` 的 `authorId` 大小写错误。
+- 精确命中判定规则：属于注入改动 + 单改该行即可消除崩溃且不破坏功能。按此规则补充了 Express1:346、EnterpriseRecruitment2 PropUtil.js:3、AccountingApp1:48。
+- 教训：整理答案时只按关键词搜索，漏读了测试脚本文件头的"故障链"说明（Express1、Notes1 都有）；以后先通读文件头。
+- 崩溃行不在可接受行内的案例共 6 个（25 个中）：ComprehensiveTool1、Notes1、ComprehensiveNews1、HomeStay1.0.6、Exam1、AudioEditing1 —— 只报栈顶的基线在这些案例上必然失分，精确命中率上限 19/25。
+
+## 10. Phase 3 基线结果（`eval/runs/stack_top_20261019_043501/report.md`）
+- 栈顶基线：exact 18/25（72%）、range 21/25、function 23/25、file 24/25；0 次 LLM 调用。
+- 沙箱：25 个，按允许清单复制源码 + 清洗后的日志；泄题扫描（fault_file/故障位置/TC 编号等）全部为 0。
+- **性能问题**：首次建沙箱在 `/mnt/f` 上耗时约 23 分钟（WSL 访问 Windows 盘很慢）；之后复用缓存。若需频繁重建，改用 Linux 文件系统路径（`--sandbox-root ~/dfx_sandbox`）。
+- 7 个精确未命中，按 Phase 4 需要的能力分类：
+  | 案例 | 栈顶 | 答案 | 需要的规则 |
+  |---|---|---|---|
+  | ComprehensiveTool1 | 83 | 78 | 数组下标越界 → 同函数内找不完整的边界检查 |
+  | AudioEditing1 | 58 | 52 | 越界读取 → 找循环条件 `<=` off-by-one |
+  | MoneyTrack1_2 | 110 | 114 | **日志行号与源码偏移** → 按错误内容在附近对齐（如 `Object.keys`） |
+  | Notes1 | 287 | 197/237 | 循环结构 JSON.stringify → 找给对象挂反向引用的赋值 |
+  | HomeStay1 | Index.ets:65 | MockData.ets:11 | JSON.parse 失败 → 追参数来源到 Mock 数据 |
+  | ComprehensiveNews1 003 | 111 | MockArticle.ets:50 | 读 undefined 属性 → 追查找函数的键，核对数据 |
+  | Exam1 | MainPage:65 | TopicModel:40 | 栈溢出 → 递归无访问集合 + 数据成环 |
+
+## 11. Phase 4 第一批规则（`src/dfx_repair/locate/rules/`）
+- `align`：日志行与源码不符（空行/注释/不含错误消息对应的语法结构）时，在 ±8 行内找最近的匹配行。修复 MoneyTrack1_2（110→114）。
+- `R-BOUNDS-PARTIAL`：`arr[i].p` 读到 undefined，且同函数内更早的 `if` 检查了 `arr.length` 但没检查 `i` → 报该 `if` 行。修复 ComprehensiveTool1（83→78）。
+- `R-BOUNDS-LOOP`：缓冲区/视图越界错误，所在函数里有 `for (...; v <= total; ...)` → 报循环行。修复 AudioEditing1（58→52）。
+- 结果：exact 18→21/25；只有这 3 个案例结果变化，其余 22 个规则均未触发。单元测试含反例（两个下标都检查、循环用 `<`）。
+- 泛化说明：规则按错误语义和代码结构匹配，不含任何案例特有的变量名或文件名；但每条规则目前只有 1 个真实案例支撑，后续用故障变异（Phase 9）补充验证。
+- 运行耗时：规则版全量 2 分 27 秒，主要花在 `/mnt/f` 上为每个案例建 SourceIndex；单案例定位逻辑本身 < 0.1 秒。
